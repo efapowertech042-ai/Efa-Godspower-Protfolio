@@ -35,6 +35,7 @@ export const CANONICAL_URLS = {
   resume: 'https://sites.google.com/view/efagodspower/resume',
   contact: 'https://sites.google.com/view/efagodspower/contact',
   githubProfile: 'https://github.com/efapowertech042-ai',
+  linkedin: 'https://www.linkedin.com/in/efagodspower/',
   tableauSalary:
     'https://public.tableau.com/views/AI__Data_Jobs_Salary_Insights/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link',
   tableauExecutiveSales:
@@ -247,25 +248,25 @@ export const PROJECTS: ProjectItem[] = [
     id: 'logistics-financing-dashboard',
     number: '06',
     title: 'Logistics Financing Dashboard',
-    subtitle: 'Revenue trend diagnostics and regional operational flow concentration analysis.',
+    subtitle: 'Interactive Excel pivot dashboard analyzing revenue trends and regional operational flow.',
     category: 'BI & Tableau Dashboards',
-    domain: 'Logistics Finance & Operational BI',
+    domain: 'Excel Pivot BI · Logistics Finance',
     description:
-      'Created to analyze revenue trends and provide a statistical view of which products generate the most revenue and which regions maximize operational flow.',
+      'Built as an interactive Microsoft Excel pivot table and slicer dashboard to analyze revenue trends and provide a clear statistical view of which products generate the most revenue and which regions maximize operational flow.',
     highlights: [
-      'Maps product-line revenue concentration against regional shipment and financing throughput.',
-      'Surfaces seasonal logistics cash-flow bottlenecks and top-performing fulfillment corridors.',
-      'Includes an interactive case-study breakdown of revenue-by-product and regional operational flow.',
+      'Constructed multi-pivot Excel data models with interactive Year slicers (2021–2023) and KPI cards.',
+      'Maps product-line revenue concentration against regional shipment throughput and delivery status breakdowns.',
+      'Surfaces top-performing fulfillment corridors (led by Lagos) alongside cancelled and failed delivery bottlenecks.',
     ],
     metrics: [
       { label: 'Focus', value: 'Revenue & Flow' },
       { label: 'Segmentation', value: 'Product × Region' },
-      { label: 'Artifact', value: 'Interactive Study' },
+      { label: 'Platform', value: 'Excel Pivot' },
     ],
-    techStack: ['Excel', 'Power BI', 'Tableau', 'SQL', 'Logistics Analytics', 'Statistical Profiling'],
+    techStack: ['Microsoft Excel', 'Pivot Tables', 'Interactive Slicers', 'SQL', 'Logistics Analytics'],
     imageUrl: '/assets/aistudio/unnamed__3__9ad19672.png',
     imageAlt:
-      'Logistics Financing Excel Dashboard showing ₦3.18B total revenue, 384.71K orders, 4.69K products, 8 regions led by Lagos, and order delivery status analytics',
+      'Logistics Financing Excel Pivot Dashboard showing ₦3.18B total revenue, 384.71K orders, 4.69K products, 8 regions led by Lagos, and order delivery status analytics',
     links: {},
     interactiveType: 'logistics-modal',
   },
@@ -273,25 +274,25 @@ export const PROJECTS: ProjectItem[] = [
     id: 'real-estate-sales-ratio-dashboard',
     number: '07',
     title: 'Real Estate Sales Ratio Dashboard',
-    subtitle: 'Property tax equity analysis comparing assessed values against actual sale prices.',
+    subtitle: 'Excel pivot dashboard auditing assessed property values against actual sale prices.',
     category: 'BI & Tableau Dashboards',
-    domain: 'Public Sector & Real Estate Tax Equity',
+    domain: 'Excel Pivot BI · Real Estate Tax Equity',
     description:
-      'Developed to analyze property sales trends, frequency distributions, and assessment ratios (comparing assessed property value to actual sale price across years) to give government stakeholders insight into property tax distribution and highlight regions with high rates of under-assessed properties.',
+      'Developed as an interactive Microsoft Excel pivot table and slicer dashboard to analyze property sales trends, frequency distributions, and assessment ratios (comparing assessed property value to actual sale price across years) to give government stakeholders insight into property tax distribution and highlight districts with under-assessed properties.',
     highlights: [
-      'Computes multi-year assessment-to-sale ratios to benchmark municipal property valuation accuracy.',
-      'Isolates frequency distribution skews indicating systematic under-assessment across districts.',
-      'Provides government finance stakeholders with actionable equity and reassessment targets.',
+      'Uses Excel Pivot Tables and year slicers (2020–2021) to benchmark municipal property valuation ratios.',
+      'Isolates frequency distribution skews and property-type variances across Single Family, Condo, and Multi-Family sales.',
+      'Provides government finance stakeholders with municipal sales ratio rankings for equitable reassessment targeting.',
     ],
     metrics: [
       { label: 'Core Metric', value: 'Assessed / Sale' },
       { label: 'Distribution', value: 'Multi-Year' },
-      { label: 'Stakeholder', value: 'Tax Equity' },
+      { label: 'Platform', value: 'Excel Pivot' },
     ],
-    techStack: ['Excel', 'Tableau', 'Power BI', 'SQL', 'Statistical Distributions', 'Public Policy BI'],
+    techStack: ['Microsoft Excel', 'Pivot Tables', 'Interactive Slicers', 'SQL', 'Public Policy BI'],
     imageUrl: '/assets/aistudio/unnamed__4__b9d58e11.png',
     imageAlt:
-      'Real Estate Sales Ratio Dashboard showing $481,018 average price, 0.573 average sales ratio across 57,966 properties, municipal ratio table, and property type breakdown',
+      'Real Estate Sales Ratio Excel Pivot Dashboard showing $481,018 average price, 0.573 average sales ratio across 57,966 properties, municipal ratio pivot table, and property type breakdown',
     links: {},
     interactiveType: 'realestate-modal',
   },
@@ -345,7 +346,7 @@ export const COMPETENCY_MATRIX: CompetencyPillar[] = [
     id: 'executive-bi',
     pillar: 'Business Intelligence & Executive Dashboards',
     competencies:
-      'Tableau Public, Power BI, SQL querying, interactive slicers, compensation benchmarking & municipal tax ratio analysis.',
+      'Tableau Public, Excel Pivot & Slicer Dashboards, Power BI, SQL querying, compensation benchmarking & municipal tax ratio analysis.',
     proofSummary:
       'AI & Data Jobs Salary Analysis (2020–2026), Sales & Profit Performance, Logistics Financing & Real Estate Sales Ratio Dashboards.',
     targetCategory: 'BI & Tableau Dashboards',
@@ -473,10 +474,34 @@ export const TECH_STACK_GROUPS = [
   },
   {
     group: 'Business Intelligence',
-    items: ['Tableau Public', 'Power BI', 'Excel', 'Executive KPI Design'],
+    items: ['Tableau Public', 'Microsoft Excel (Pivot Dashboards)', 'Power BI', 'Executive KPI Design'],
   },
   {
     group: 'AI Evaluation & Deployment',
     items: ['Error Analysis', 'Benchmarking', 'Bias Reduction', 'Django', 'Render'],
+  },
+];
+
+export const CERTIFICATIONS = [
+  {
+    id: 'ncds-nebiant',
+    title: 'Nebiant Certified Data Scientist (NCDS)',
+    credentialType: 'Certificate of Completion',
+    issuer: 'Nebiant Analytics',
+    program: 'Data Science Programme',
+    duration: '3 Months',
+    completionDate: '21/03/2026',
+    tools: [
+      'Excel',
+      'Statistics',
+      'Tableau',
+      'SQL',
+      'Python',
+      'Machine Learning',
+      'Natural Language Processing (NLP)',
+      'Exploratory Data Analysis',
+      'GitHub',
+    ],
+    previewImageUrl: '/src/assets/images/nebiant_ncds_certificate.png',
   },
 ];

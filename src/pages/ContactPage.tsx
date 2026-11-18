@@ -370,6 +370,16 @@ export function ContactPage() {
 
             <div className="mt-5 space-y-3">
               <a
+                href={CANONICAL_URLS.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between rounded-xl border border-white/[0.08] bg-[#080B12]/90 px-4 py-3 text-sm font-medium text-slate-100 transition-colors hover:border-amber-400/50 hover:text-white"
+              >
+                <span>LinkedIn — in/efagodspower</span>
+                <ExternalLink className="h-4 w-4 text-amber-300" aria-hidden="true" />
+              </a>
+
+              <a
                 href={CANONICAL_URLS.githubProfile}
                 target="_blank"
                 rel="noopener noreferrer"

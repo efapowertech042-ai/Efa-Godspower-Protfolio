@@ -1,7 +1,25 @@
-import { Printer, ExternalLink } from 'lucide-react';
-import { CANONICAL_URLS, CONTACT_INFO, PROJECTS, TECH_STACK_GROUPS } from '../data/portfolioData';
+import { useEffect, useState } from 'react';
+import { Printer, ExternalLink, Award, Eye, X } from 'lucide-react';
+import {
+  CANONICAL_URLS,
+  CERTIFICATIONS,
+  CONTACT_INFO,
+  PROJECTS,
+  TECH_STACK_GROUPS,
+} from '../data/portfolioData';
 
 export function ResumePage() {
+  const [activeCert, setActiveCert] = useState<(typeof CERTIFICATIONS)[number] | null>(null);
+
+  useEffect(() => {
+    if (!activeCert) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setActiveCert(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [activeCert]);
+
   const handlePrint = () => {
     window.print();
   };
@@ -71,6 +89,15 @@ export function ResumePage() {
               className="hover:text-orange-300 transition-colors"
             >
               github.com/efapowertech042-ai
+            </a>
+            <span aria-hidden="true">·</span>
+            <a
+              href={CANONICAL_URLS.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-orange-300 transition-colors"
+            >
+              linkedin.com/in/efagodspower
             </a>
             <span aria-hidden="true">·</span>
             <a
@@ -145,6 +172,56 @@ export function ResumePage() {
           </dl>
         </section>
 
+        {/* Certifications & Credentials */}
+        <section className="mt-6 border-b border-white/[0.08] pb-6">
+          <h3 className="font-display text-sm font-semibold tracking-wide text-amber-300">
+            Certifications &amp; Credentials
+          </h3>
+          <div className="mt-4 space-y-4">
+            {CERTIFICATIONS.map((cert) => (
+              <div
+                key={cert.id}
+                className="flex flex-col gap-4 rounded-xl border border-white/[0.08] bg-[#080B12]/90 p-5 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div className="space-y-1.5">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Award className="h-4 w-4 shrink-0 text-amber-300" aria-hidden="true" />
+                    <h4 className="font-display text-sm font-semibold text-white">
+                      {cert.title}
+                    </h4>
+                  </div>
+                  <p className="text-xs text-slate-300">
+                    <span className="font-medium text-orange-200">{cert.issuer}</span>
+                    <span aria-hidden="true"> · </span>
+                    <span>{cert.credentialType}</span>
+                    <span aria-hidden="true"> · </span>
+                    <span>{cert.duration} ({cert.program})</span>
+                    <span aria-hidden="true"> · </span>
+                    <span className="font-mono tabular-nums text-slate-200">
+                      Completed {cert.completionDate}
+                    </span>
+                  </p>
+                  <p className="text-xs leading-relaxed text-slate-400">
+                    <span className="font-medium text-slate-300">Verified Competencies: </span>
+                    {cert.tools.join(' · ')}
+                  </p>
+                </div>
+
+                <div className="no-print flex flex-wrap items-center gap-2.5 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setActiveCert(cert)}
+                    className="inline-flex min-h-[38px] items-center gap-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 px-3.5 py-2 text-xs font-semibold text-white transition-all hover:from-amber-400 hover:to-orange-500 whitespace-nowrap"
+                  >
+                    <Eye className="h-3.5 w-3.5" aria-hidden="true" />
+                    View Certificate
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Key Applied Projects */}
         <section className="mt-6">
           <h3 className="font-display text-sm font-semibold tracking-wide text-amber-300">
@@ -173,6 +250,58 @@ export function ResumePage() {
           </div>
         </section>
       </div>
+
+      {/* View-Only Certificate Preview Modal */}
+      {activeCert && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={activeCert.title}
+          onClick={() => setActiveCert(null)}
+          className="no-print fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            onContextMenu={(e) => e.preventDefault()}
+            className="relative flex w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-white/[0.14] bg-[#080B12] p-3 sm:p-4 shadow-2xl select-none"
+          >
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-3 px-1">
+              <div>
+                <p className="font-display text-sm font-semibold text-white">
+                  {activeCert.title}
+                </p>
+                <p className="text-xs text-slate-400">
+                  {activeCert.issuer} · Completed {activeCert.completionDate} · View-Only Credential
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setActiveCert(null)}
+                aria-label="Close certificate preview"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/[0.12] bg-white/[0.05] text-slate-200 hover:bg-white/[0.12] hover:text-white"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white">
+              <img
+                src={activeCert.previewImageUrl}
+                alt={`${activeCert.title} — ${activeCert.issuer}`}
+                draggable={false}
+                onContextMenu={(e) => e.preventDefault()}
+                className="max-h-[78vh] w-full object-contain pointer-events-none select-none"
+              />
+              <div
+                className="absolute inset-0"
+                onContextMenu={(e) => e.preventDefault()}
+                aria-hidden="true"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

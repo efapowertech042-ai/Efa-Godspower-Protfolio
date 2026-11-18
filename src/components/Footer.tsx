@@ -36,6 +36,15 @@ export function Footer({ onNavigate }: FooterProps) {
             |
           </span>
           <a
+            href={CANONICAL_URLS.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-amber-300 transition-colors hover:text-orange-300 whitespace-nowrap shrink-0"
+          >
+            LinkedIn
+            <ExternalLink className="h-3 w-3" aria-hidden="true" />
+          </a>
+          <a
             href={CANONICAL_URLS.githubProfile}
             target="_blank"
             rel="noopener noreferrer"
