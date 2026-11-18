@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { ExternalLink, ChevronDown, ChevronUp, BarChart2, RotateCcw } from 'lucide-react';
+import { useState, useMemo, useEffect } from 'react';
+import { ExternalLink, ChevronDown, ChevronUp, BarChart2, RotateCcw, Maximize2, X } from 'lucide-react';
 import {
   CANONICAL_URLS,
   PIPELINE_STAGES,
@@ -35,6 +35,16 @@ export function PortfolioPage({
   const [activePipelineStep, setActivePipelineStep] = useState(3);
   const [showFraudChart, setShowFraudChart] = useState(true);
   const [modalMode, setModalMode] = useState<'logistics' | 'realestate' | null>(null);
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string; title: string } | null>(null);
+
+  useEffect(() => {
+    if (!lightboxImage) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightboxImage(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [lightboxImage]);
 
   const filteredProjects = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -206,60 +216,90 @@ export function PortfolioPage({
         </div>
       )}
 
-      {/* Featured Full-Width Flagship: Project 1 */}
+      {/* Featured Flagship: Project 1 — Side-by-Side Split Layout */}
       {featuredProject && (
         <article className="mt-8 overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0B0F17]/85 backdrop-blur-md shadow-[0_24px_60px_-20px_rgba(0,0,0,0.75)]">
-          <div className="grid lg:grid-cols-12">
-            <div className="p-6 sm:p-8 lg:col-span-7">
-              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
-                <span className="font-mono text-amber-300">
-                  Project {featuredProject.number} · Flagship System
-                </span>
-                <span aria-hidden="true">·</span>
-                <span>{featuredProject.domain}</span>
+          <div className="grid items-start gap-8 p-6 sm:p-8 lg:grid-cols-12">
+            {/* Left Column: Narrative, Highlights, Stack & Actions */}
+            <div className="flex flex-col justify-between lg:col-span-7">
+              <div>
+                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
+                  <span className="font-mono text-amber-300">
+                    Project {featuredProject.number} · Flagship System
+                  </span>
+                  <span aria-hidden="true">·</span>
+                  <span>{featuredProject.domain}</span>
+                </div>
+
+                <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                  {featuredProject.title}
+                </h2>
+                <p className="mt-1.5 text-sm font-medium text-orange-200">
+                  {featuredProject.subtitle}
+                </p>
+
+                <p className="mt-4 text-sm leading-relaxed text-slate-300">
+                  {featuredProject.description}
+                </p>
+
+                <ul className="mt-5 space-y-2 text-xs leading-relaxed text-slate-300">
+                  {featuredProject.highlights.map((h) => (
+                    <li key={h} className="flex items-start gap-2">
+                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-300" aria-hidden="true" />
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="mt-5 text-xs leading-relaxed text-slate-300">
+                  <span className="font-semibold text-white">Tech Stack: </span>
+                  {featuredProject.techStack.join(' · ')}
+                </p>
               </div>
 
-              <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
-                {featuredProject.title}
-              </h2>
-              <p className="mt-1.5 text-sm font-medium text-orange-200">
-                {featuredProject.subtitle}
-              </p>
+              <div className="mt-6">{renderProjectLinks(featuredProject)}</div>
+            </div>
 
-              <p className="mt-4 text-sm leading-relaxed text-slate-300">
-                {featuredProject.description}
-              </p>
+            {/* Right Column: Compact 16:9 Project Visual + 2x2 Metrics */}
+            <div className="flex flex-col gap-4 lg:col-span-5 lg:border-l lg:border-white/[0.08] lg:pl-8">
+              <button
+                type="button"
+                onClick={() =>
+                  setLightboxImage({
+                    src: featuredProject.imageUrl,
+                    alt: featuredProject.imageAlt,
+                    title: featuredProject.title,
+                  })
+                }
+                aria-label="Inspect full-resolution Health Insurance Charges Predictor infographic"
+                className="group relative block aspect-[1280/719] w-full overflow-hidden rounded-xl border border-white/[0.12] bg-[#080B12] text-left shadow-[0_14px_36px_-12px_rgba(0,0,0,0.8)] transition-colors hover:border-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-400/70"
+              >
+                <SafeImage
+                  src={featuredProject.imageUrl}
+                  alt={featuredProject.imageAlt}
+                  fallbackTitle={featuredProject.title}
+                  fallbackSubtitle={featuredProject.subtitle}
+                  variant="ml"
+                  className="h-full w-full"
+                  imgClassName="object-contain transition-transform duration-300 group-hover:scale-[1.015]"
+                />
+                <span className="pointer-events-none absolute bottom-2.5 right-2.5 inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-[#080B12]/90 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md transition-colors group-hover:border-amber-400/70 group-hover:bg-[#0B0F17]">
+                  <Maximize2 className="h-3 w-3 text-amber-300" aria-hidden="true" />
+                  Expand
+                </span>
+              </button>
 
               {/* Performance Metric Strip */}
-              <div className="mt-6 grid grid-cols-2 divide-x divide-white/[0.08] rounded-xl border border-white/[0.08] bg-[#080B12]/90 sm:grid-cols-4">
+              <div className="grid grid-cols-2 divide-x divide-y divide-white/[0.08] rounded-xl border border-white/[0.08] bg-[#080B12]/90">
                 {featuredProject.metrics.map((m) => (
-                  <div key={m.label} className="p-3.5">
+                  <div key={m.label} className="px-4 py-3">
                     <p className="text-[11px] font-medium text-slate-400">{m.label}</p>
-                    <p className="mt-1 font-mono text-base font-semibold text-white tabular-nums">
+                    <p className="mt-0.5 font-mono text-base font-semibold text-white tabular-nums">
                       {m.value}
                     </p>
                   </div>
                 ))}
               </div>
-
-              {/* Clean Unboxed Tech Stack */}
-              <p className="mt-5 text-xs leading-relaxed text-slate-300">
-                <span className="font-semibold text-white">Tech Stack: </span>
-                {featuredProject.techStack.join(' · ')}
-              </p>
-
-              <div className="mt-6">{renderProjectLinks(featuredProject)}</div>
-            </div>
-
-            <div className="border-t border-white/[0.08] lg:col-span-5 lg:border-l lg:border-t-0">
-              <SafeImage
-                src={featuredProject.imageUrl}
-                alt={featuredProject.imageAlt}
-                fallbackTitle={featuredProject.title}
-                fallbackSubtitle={featuredProject.subtitle}
-                variant="ml"
-                className="h-full min-h-[260px] w-full"
-              />
             </div>
           </div>
 
@@ -317,124 +357,358 @@ export function PortfolioPage({
       {/* Projects 2–7 Grid */}
       {standardProjects.length > 0 && (
         <div className="mt-8 grid gap-7 lg:grid-cols-2">
-          {standardProjects.map((project) => (
-            <article
-              key={project.id}
-              className={`flex flex-col overflow-hidden rounded-2xl border border-white/[0.09] bg-[#0B0F17]/85 backdrop-blur-md ${
-                project.interactiveType === 'fraud-chart' ? 'lg:col-span-2' : ''
-              }`}
-            >
-              <div
-                className={
-                  project.interactiveType === 'fraud-chart'
-                    ? 'grid lg:grid-cols-12'
-                    : 'flex flex-1 flex-col'
-                }
+          {standardProjects.map((project) =>
+            project.interactiveType === 'fraud-chart' ? (
+              <article
+                key={project.id}
+                className="lg:col-span-2 flex flex-col overflow-hidden rounded-2xl border border-white/[0.09] bg-[#0B0F17]/85 backdrop-blur-md shadow-[0_20px_50px_-20px_rgba(0,0,0,0.75)]"
               >
-                <div
-                  className={
-                    project.interactiveType === 'fraud-chart'
-                      ? 'lg:col-span-5 border-b border-white/[0.08] lg:border-b-0 lg:border-r'
-                      : 'aspect-[16/9] border-b border-white/[0.08]'
-                  }
-                >
-                  <SafeImage
-                    src={project.imageUrl}
-                    alt={project.imageAlt}
-                    fallbackTitle={project.title}
-                    fallbackSubtitle={project.subtitle}
-                    variant={project.category === 'Fraud & Forecasting' ? 'fraud' : 'bi'}
-                    className="h-full min-h-[220px] w-full"
-                  />
-                </div>
-
-                <div
-                  className={`flex flex-1 flex-col justify-between p-6 ${
-                    project.interactiveType === 'fraud-chart' ? 'lg:col-span-7 sm:p-7' : ''
-                  }`}
-                >
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
-                      <span className="font-mono text-amber-300">
-                        Project {project.number}
+                <div className="grid items-start gap-8 p-6 sm:p-8 lg:grid-cols-12">
+                  {/* Left Column: Compact 16:9 Fraud Dashboard Infographic + 2x2 Metrics */}
+                  <div className="flex flex-col gap-4 lg:col-span-5 lg:border-r lg:border-white/[0.08] lg:pr-8">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setLightboxImage({
+                          src: project.imageUrl,
+                          alt: project.imageAlt,
+                          title: project.title,
+                        })
+                      }
+                      aria-label="Inspect full-resolution Discount or Deceit fraud clustering infographic"
+                      className="group relative block aspect-[1280/719] w-full overflow-hidden rounded-xl border border-white/[0.12] bg-[#080B12] text-left shadow-[0_14px_36px_-12px_rgba(0,0,0,0.8)] transition-colors hover:border-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-400/70"
+                    >
+                      <SafeImage
+                        src={project.imageUrl}
+                        alt={project.imageAlt}
+                        fallbackTitle={project.title}
+                        fallbackSubtitle={project.subtitle}
+                        variant="fraud"
+                        className="h-full w-full"
+                        imgClassName="object-contain transition-transform duration-300 group-hover:scale-[1.015]"
+                      />
+                      <span className="pointer-events-none absolute bottom-2.5 right-2.5 inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-[#080B12]/90 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md transition-colors group-hover:border-amber-400/70 group-hover:bg-[#0B0F17]">
+                        <Maximize2 className="h-3 w-3 text-amber-300" aria-hidden="true" />
+                        Expand
                       </span>
-                      <span aria-hidden="true">·</span>
-                      <span>{project.category}</span>
-                      <span aria-hidden="true">·</span>
-                      <span>{project.domain}</span>
-                    </div>
+                    </button>
 
-                    <h2 className="mt-2 font-display text-xl font-bold tracking-tight text-white">
-                      {project.title}
-                    </h2>
-                    <p className="mt-1 text-xs font-medium text-orange-200">
-                      {project.subtitle}
-                    </p>
-                    <p className="mt-3 text-sm leading-relaxed text-slate-300">
-                      {project.description}
-                    </p>
-
-                    <ul className="mt-4 space-y-1.5 text-xs leading-relaxed text-slate-300">
-                      {project.highlights.map((h) => (
-                        <li key={h} className="flex items-start gap-2">
-                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-300" aria-hidden="true" />
-                          <span>{h}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="mt-6 space-y-4 border-t border-white/[0.08] pt-4">
-                    {/* Unboxed Key Metrics */}
-                    <div className="flex flex-wrap gap-x-6 gap-y-2">
+                    {/* 2x2 Key Audit Metrics */}
+                    <div className="grid grid-cols-2 divide-x divide-y divide-white/[0.08] rounded-xl border border-white/[0.08] bg-[#080B12]/90">
                       {project.metrics.map((m) => (
-                        <div key={m.label}>
-                          <span className="block text-[11px] text-slate-400">{m.label}</span>
-                          <span className="font-mono text-xs font-semibold text-white tabular-nums">
+                        <div key={m.label} className="px-4 py-3">
+                          <p className="text-[11px] font-medium text-slate-400">{m.label}</p>
+                          <p className="mt-0.5 font-mono text-base font-semibold text-white tabular-nums">
                             {m.value}
-                          </span>
+                          </p>
                         </div>
                       ))}
                     </div>
+                  </div>
 
-                    <p className="text-xs text-slate-300">
-                      <span className="font-semibold text-white">Stack: </span>
-                      {project.techStack.join(' · ')}
-                    </p>
+                  {/* Right Column: Narrative, Highlights, Stack & Actions */}
+                  <div className="flex flex-col justify-between lg:col-span-7">
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
+                        <span className="font-mono text-amber-300">
+                          Project {project.number}
+                        </span>
+                        <span aria-hidden="true">·</span>
+                        <span>{project.category}</span>
+                        <span aria-hidden="true">·</span>
+                        <span>{project.domain}</span>
+                      </div>
 
-                    <div className="flex flex-wrap items-center gap-3 pt-1">
+                      <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-white">
+                        {project.title}
+                      </h2>
+                      <p className="mt-1.5 text-sm font-medium text-orange-200">
+                        {project.subtitle}
+                      </p>
+
+                      <p className="mt-4 text-sm leading-relaxed text-slate-300">
+                        {project.description}
+                      </p>
+
+                      <ul className="mt-5 space-y-2 text-xs leading-relaxed text-slate-300">
+                        {project.highlights.map((h) => (
+                          <li key={h} className="flex items-start gap-2">
+                            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-300" aria-hidden="true" />
+                            <span>{h}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <p className="mt-5 text-xs leading-relaxed text-slate-300">
+                        <span className="font-semibold text-white">Stack: </span>
+                        {project.techStack.join(' · ')}
+                      </p>
+                    </div>
+
+                    <div className="mt-6 flex flex-wrap items-center gap-3">
                       {renderProjectLinks(project)}
 
-                      {project.interactiveType === 'fraud-chart' && (
-                        <button
-                          type="button"
-                          onClick={() => setShowFraudChart((prev) => !prev)}
-                          className="inline-flex min-h-[40px] items-center gap-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 px-4 py-2 text-xs font-semibold text-white transition-all hover:from-amber-400 hover:to-orange-500 whitespace-nowrap shrink-0"
-                        >
-                          {showFraudChart ? 'Hide Regional Anomaly Chart' : 'Inspect Regional Anomaly Chart'}
-                          {showFraudChart ? (
-                            <ChevronUp className="h-3.5 w-3.5" aria-hidden="true" />
-                          ) : (
-                            <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
-                          )}
-                        </button>
-                      )}
+                      <button
+                        type="button"
+                        onClick={() => setShowFraudChart((prev) => !prev)}
+                        className="inline-flex min-h-[40px] items-center gap-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 px-4 py-2 text-xs font-semibold text-white transition-all hover:from-amber-400 hover:to-orange-500 whitespace-nowrap shrink-0"
+                      >
+                        {showFraudChart ? 'Hide Regional Anomaly Chart' : 'Inspect Regional Anomaly Chart'}
+                        {showFraudChart ? (
+                          <ChevronUp className="h-3.5 w-3.5" aria-hidden="true" />
+                        ) : (
+                          <ChevronDown className="h-3.5 w-3.5" aria-hidden="true" />
+                        )}
+                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {project.interactiveType === 'fraud-chart' && showFraudChart && (
-                <div className="border-t border-white/[0.08] bg-[#080B12]/80 p-6">
-                  <FraudAnomalyChart />
+                {showFraudChart && (
+                  <div className="border-t border-white/[0.08] bg-[#080B12]/80 p-6">
+                    <FraudAnomalyChart />
+                  </div>
+                )}
+              </article>
+            ) : project.id === 'global-retail-sales-intelligence' ? (
+              <article
+                key={project.id}
+                className="lg:col-span-2 flex flex-col overflow-hidden rounded-2xl border border-white/[0.09] bg-[#0B0F17]/85 backdrop-blur-md shadow-[0_20px_50px_-20px_rgba(0,0,0,0.75)]"
+              >
+                <div className="grid items-start gap-8 p-6 sm:p-8 lg:grid-cols-12">
+                  {/* Left Column: Narrative, Highlights, Stack & Actions */}
+                  <div className="flex flex-col justify-between lg:col-span-7">
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
+                        <span className="font-mono text-amber-300">
+                          Project {project.number}
+                        </span>
+                        <span aria-hidden="true">·</span>
+                        <span>{project.category}</span>
+                        <span aria-hidden="true">·</span>
+                        <span>{project.domain}</span>
+                      </div>
+
+                      <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-white">
+                        {project.title}
+                      </h2>
+                      <p className="mt-1.5 text-sm font-medium text-orange-200">
+                        {project.subtitle}
+                      </p>
+
+                      <p className="mt-4 text-sm leading-relaxed text-slate-300">
+                        {project.description}
+                      </p>
+
+                      <ul className="mt-5 space-y-2 text-xs leading-relaxed text-slate-300">
+                        {project.highlights.map((h) => (
+                          <li key={h} className="flex items-start gap-2">
+                            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-300" aria-hidden="true" />
+                            <span>{h}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <p className="mt-5 text-xs leading-relaxed text-slate-300">
+                        <span className="font-semibold text-white">Stack: </span>
+                        {project.techStack.join(' · ')}
+                      </p>
+                    </div>
+
+                    <div className="mt-6 flex flex-wrap items-center gap-3">
+                      {renderProjectLinks(project)}
+                    </div>
+                  </div>
+
+                  {/* Right Column: Compact Matte-Framed 16:9 Infographic + Metrics */}
+                  <div className="flex flex-col gap-4 lg:col-span-5 lg:border-l lg:border-white/[0.08] lg:pl-8">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setLightboxImage({
+                          src: project.imageUrl,
+                          alt: project.imageAlt,
+                          title: project.title,
+                        })
+                      }
+                      aria-label="Inspect full-resolution Global Retail Sales Intelligence infographic"
+                      className="group relative block w-full overflow-hidden rounded-xl border border-white/[0.14] bg-[#080B12] p-1.5 text-left shadow-[0_14px_36px_-12px_rgba(0,0,0,0.85)] transition-colors hover:border-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-400/70"
+                    >
+                      <div className="relative aspect-[1280/719] w-full overflow-hidden rounded-lg bg-[#F8FAFC] ring-1 ring-black/15">
+                        <SafeImage
+                          src={project.imageUrl}
+                          alt={project.imageAlt}
+                          fallbackTitle={project.title}
+                          fallbackSubtitle={project.subtitle}
+                          variant="fraud"
+                          className="h-full w-full bg-[#F8FAFC]"
+                          imgClassName="object-contain transition-transform duration-300 group-hover:scale-[1.015]"
+                        />
+                        <div
+                          className="pointer-events-none absolute inset-0 rounded-lg shadow-[inset_0_0_24px_rgba(8,11,18,0.12)]"
+                          aria-hidden="true"
+                        />
+                      </div>
+                      <span className="pointer-events-none absolute bottom-3.5 right-3.5 inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-[#080B12]/90 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md transition-colors group-hover:border-amber-400/70 group-hover:bg-[#0B0F17]">
+                        <Maximize2 className="h-3 w-3 text-amber-300" aria-hidden="true" />
+                        Expand
+                      </span>
+                    </button>
+
+                    {/* 3-Column Metrics Strip */}
+                    <div className="grid grid-cols-3 divide-x divide-white/[0.08] rounded-xl border border-white/[0.08] bg-[#080B12]/90">
+                      {project.metrics.map((m) => (
+                        <div key={m.label} className="px-3.5 py-3">
+                          <p className="text-[11px] font-medium text-slate-400 truncate">{m.label}</p>
+                          <p className="mt-0.5 font-mono text-sm font-semibold text-white tabular-nums">
+                            {m.value}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              )}
-            </article>
-          ))}
+              </article>
+            ) : (
+              <article
+                key={project.id}
+                className="flex flex-col overflow-hidden rounded-2xl border border-white/[0.09] bg-[#0B0F17]/85 backdrop-blur-md"
+              >
+                <div className="flex flex-1 flex-col">
+                  <div className="border-b border-white/[0.08] bg-[#080B12] p-2.5">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setLightboxImage({
+                          src: project.imageUrl,
+                          alt: project.imageAlt,
+                          title: project.title,
+                        })
+                      }
+                      aria-label={`Inspect full-resolution ${project.title} visual`}
+                      className="group relative block aspect-[1280/719] w-full overflow-hidden rounded-lg border border-white/[0.1] bg-[#0B0F17] text-left shadow-[inset_0_0_24px_rgba(0,0,0,0.2)] transition-colors hover:border-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-400/70"
+                    >
+                      <SafeImage
+                        src={project.imageUrl}
+                        alt={project.imageAlt}
+                        fallbackTitle={project.title}
+                        fallbackSubtitle={project.subtitle}
+                        variant={project.category === 'Fraud & Forecasting' ? 'fraud' : 'bi'}
+                        className="h-full w-full"
+                        imgClassName={`object-contain transition-transform duration-300 group-hover:scale-[1.015] ${
+                          project.id === 'logistics-financing-dashboard'
+                            ? 'bg-[#F3F4F6]'
+                            : project.id === 'sales-profit-performance-dashboard' ||
+                              project.id === 'ai-data-jobs-salary-analysis'
+                            ? 'bg-white'
+                            : ''
+                        }`}
+                      />
+                      <span className="pointer-events-none absolute bottom-2 right-2 inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-[#080B12]/90 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md transition-colors group-hover:border-amber-400/70 group-hover:bg-[#0B0F17]">
+                        <Maximize2 className="h-3 w-3 text-amber-300" aria-hidden="true" />
+                        Expand
+                      </span>
+                    </button>
+                  </div>
+
+                  <div className="flex flex-1 flex-col justify-between p-6">
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
+                        <span className="font-mono text-amber-300">
+                          Project {project.number}
+                        </span>
+                        <span aria-hidden="true">·</span>
+                        <span>{project.category}</span>
+                        <span aria-hidden="true">·</span>
+                        <span>{project.domain}</span>
+                      </div>
+
+                      <h2 className="mt-2 font-display text-xl font-bold tracking-tight text-white">
+                        {project.title}
+                      </h2>
+                      <p className="mt-1 text-xs font-medium text-orange-200">
+                        {project.subtitle}
+                      </p>
+                      <p className="mt-3 text-sm leading-relaxed text-slate-300">
+                        {project.description}
+                      </p>
+
+                      <ul className="mt-4 space-y-1.5 text-xs leading-relaxed text-slate-300">
+                        {project.highlights.map((h) => (
+                          <li key={h} className="flex items-start gap-2">
+                            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-300" aria-hidden="true" />
+                            <span>{h}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="mt-6 space-y-4 border-t border-white/[0.08] pt-4">
+                      {/* Unboxed Key Metrics */}
+                      <div className="flex flex-wrap gap-x-6 gap-y-2">
+                        {project.metrics.map((m) => (
+                          <div key={m.label}>
+                            <span className="block text-[11px] text-slate-400">{m.label}</span>
+                            <span className="font-mono text-xs font-semibold text-white tabular-nums">
+                              {m.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <p className="text-xs text-slate-300">
+                        <span className="font-semibold text-white">Stack: </span>
+                        {project.techStack.join(' · ')}
+                      </p>
+
+                      <div className="flex flex-wrap items-center gap-3 pt-1">
+                        {renderProjectLinks(project)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            )
+          )}
         </div>
       )}
 
       <CaseStudyModal mode={modalMode} onClose={() => setModalMode(null)} />
+
+      {/* Fullscreen Infographic Lightbox */}
+      {lightboxImage && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={lightboxImage.title}
+          onClick={() => setLightboxImage(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-6xl overflow-hidden rounded-2xl border border-white/[0.15] bg-[#080B12] p-3 sm:p-4 shadow-2xl"
+          >
+            <div className="mb-3 flex items-center justify-between gap-4 px-1">
+              <p className="font-display text-sm font-semibold text-white">
+                {lightboxImage.title}
+              </p>
+              <button
+                type="button"
+                onClick={() => setLightboxImage(null)}
+                aria-label="Close full-resolution view"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/[0.12] bg-white/[0.05] text-slate-200 hover:bg-white/[0.12] hover:text-white"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <img
+              src={lightboxImage.src}
+              alt={lightboxImage.alt}
+              className="max-h-[82vh] w-full rounded-xl object-contain"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

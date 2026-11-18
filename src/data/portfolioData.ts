@@ -42,7 +42,7 @@ export const CANONICAL_URLS = {
 };
 
 export const CONTACT_INFO = {
-  phone: '+2348923253332',
+  phone: '+2348023253332',
   email: 'efapowertech042@gmail.com',
 };
 
@@ -116,9 +116,9 @@ export const PROJECTS: ProjectItem[] = [
       'Django',
       'Deployment',
     ],
-    imageUrl:
-      'https://sites.google.com/sitesv-images-rt/APXyLQcSaNkqyqmJwli4bKAb-UT_4CmjAafBNtZ3qSIpDFSCbdUo3s8YZE8GIW95v8LY4WJ6vM8FMpTk_vo3t9S3ejmYsluqfU3aV4hi2pVTTyqiZPm6wazu317kTAezOO02g5bteGWqyFCfAQ5d6fAqRC53ll46rkGGibjNSINSji0u4ztdCI9fjyxFfGwN3XohAsTxNk_D3ZRE-V2BNERLmaWmQPfTsmZXkMAwK4u_e0w=w1280',
-    imageAlt: 'Health Insurance Charges Predictor deployed web interface and residual validation preview',
+    imageUrl: '/assets/aistudio/unnamed_81a6a163.png',
+    imageAlt:
+      'Health Insurance Charges Predictor — ML workflow, Actual vs Predicted scatter plot, 90% confidence interval curve, and live Django prediction interface',
     links: {
       liveDemo: 'https://health-insurance-ml-project.onrender.com/',
       github: 'https://github.com/efapowertech042-ai/Health_Insurance_ML_Project',
@@ -153,9 +153,9 @@ export const PROJECTS: ProjectItem[] = [
       'Pandas',
       'BI Fraud Report',
     ],
-    imageUrl:
-      'https://sites.google.com/sitesv-images-rt/APXyLQff-9YIhhGXQ1LLqjXJqMkv3PbmTRP0TeBLqn19vlcHM2FjnIMdiTSz9XUUBWCJVFR2dHO_UIX2neWLW4JJLlsSRCUGwXJNyI1_FaNF76E6-XQqv4n4xgiMLRr9fQ_2u4Orr0PycQvhg83sY4dLSqtW4JKLg0fedF5Ej4rMLkcq95bwDVvC-P-sqq0-I5iylGvnSgA7DT9yPEChlWaehJb7qLcpOffDAVXzdkl1=w1280',
-    imageAlt: 'Discount or Deceit Hierarchical Clustering fraud report banner',
+    imageUrl: '/assets/aistudio/unnamed__1__254bb454.png',
+    imageAlt:
+      'Discount or Deceit? — Fraud & Margin Anomaly Clustering dashboard showing 9,994 orders, $2.30M revenue, 300 Central-region maximum-discount orders (Texas 200, Illinois 100), and top loss-making customers',
     links: {
       github: 'https://github.com/efapowertech042-ai/Superstore_BI_Fraud_Report.git',
     },
@@ -180,10 +180,10 @@ export const PROJECTS: ProjectItem[] = [
       { label: 'Pipeline Scope', value: 'SQL + ML' },
       { label: 'Primary Focus', value: 'Inventory & Rev' },
     ],
-    techStack: ['Python', 'SQL', 'Pandas', 'NumPy', 'Scikit-learn', 'Revenue Forecasting'],
-    imageUrl:
-      'https://sites.google.com/sitesv-images-rt/APXyLQeIu9UcLZ8-tme0_71OG_mr8_R_xZLPTsT4IULm39PDjAvzG4dMMU4Nax3YSbsTbFyM9QW-Wd1GNG98K7yKrR35GuD0m-KYMqbq_xvlCvU4tM0GDAKqHYByfo_jG7OJHZwvD31NdLkaLC_2dJR-A1c-nfmR10sXQ3E4LlU4psvY4PvqDshJ21Lq5vefnKuV2htuwTyavNHtVthoqBoaW9nI83FGDh2BwAdBILUQ=w1280',
-    imageAlt: 'Global Retail Sales Intelligence predictive modeling architecture banner',
+    techStack: ['Python', 'SQL', 'XGBoost', 'Pandas', 'NumPy', 'Scikit-learn', 'Revenue Forecasting'],
+    imageUrl: '/assets/aistudio/unnamed__2__cc83c228.png',
+    imageAlt:
+      'Global Retail Sales Intelligence — Monthly revenue by store cluster, actual vs predicted revenue forecast, SQL-to-Python XGBoost ML pipeline, and store/product forecast KPIs',
     links: {
       github: 'https://github.com/efapowertech042-ai/Global_Retail_Sales_Intelligence.git',
     },
@@ -208,9 +208,9 @@ export const PROJECTS: ProjectItem[] = [
       { label: 'Visualization', value: 'Tableau Public' },
     ],
     techStack: ['SQL', 'Tableau Public', 'Data Cleaning', 'Compensation Benchmarking'],
-    imageUrl:
-      'https://sites.google.com/sitesv-images-rt/APXyLQfdMfY_bnKXcWyurfReCq-EQSGmNFfITkXh3IO59TrjgITLG0s7m1PvTkQgwoShaf9pPR0vtuFRz2SMVFcAcuFzEppwKwNBfuQlWkENe59lKpVcFXsiJi5B3-JoV2WeUdOR9jQmQZO0Eet4NDmlBmfJCTfUXEvkK3-g0xkjtpVwmMDyK_0Zm8zg0dPlFnUtC7znzM-aC1B2TiU4YImvyAbfBTxaSb4rHikPKIXNTts=w1280',
-    imageAlt: 'AI and Data Jobs Salary Analysis 2020 to 2026 Tableau dashboard',
+    imageUrl: '/assets/aistudio/unnamed_20a293e9.jpg',
+    imageAlt:
+      'AI & Data Jobs Salary Insights (2020–2026) Tableau dashboard showing $110,865 average market salary, 33% remote jobs share, industry comparison, 2020–2026 trend, and geographic map',
     links: {
       github: 'https://github.com/efapowertech042-ai/AI_Data_Jobs_Salary_Analysis.git',
       tableau: CANONICAL_URLS.tableauSalary,
@@ -236,9 +236,9 @@ export const PROJECTS: ProjectItem[] = [
       { label: 'Platform', value: 'Tableau Public' },
     ],
     techStack: ['Tableau Public', 'Business Intelligence', 'KPI Modeling', 'Slicer Architecture'],
-    imageUrl:
-      'https://sites.google.com/sitesv-images-rt/APXyLQes2BznffC5jX0U0jPfJqDeeOxzbH5pH1xlPv2RtHdLupdblF77WDey0luh1KlEAnJoHbLROEXs4muw4tna31n6tZEWaJLwjnMU4-vYb4WR4zllgr1dRD-Y7JNmCxU4OlyZNBNVdto3Iop223WufBVHzTYA0wub2o_QAy6FYZGR76Y5BzqbbaXd1g6P8bPI_E8gSUQuwWxbFhboaX8BIqfo-xZCGp0G7UzV5w=w1280',
-    imageAlt: 'Sales and Profit Performance Executive Tableau dashboard',
+    imageUrl: '/assets/aistudio/unnamed__5__7fb707a2.png',
+    imageAlt:
+      'Sales & Profit Performance Tableau Dashboard displaying Corporate ($241,848) and Home Office ($159,463) sales, segment monthly area trends, and Top 10 Sub-Category Sales and Profit bars',
     links: {
       tableau: CANONICAL_URLS.tableauExecutiveSales,
     },
@@ -262,10 +262,10 @@ export const PROJECTS: ProjectItem[] = [
       { label: 'Segmentation', value: 'Product × Region' },
       { label: 'Artifact', value: 'Interactive Study' },
     ],
-    techStack: ['Power BI', 'Tableau', 'SQL', 'Logistics Analytics', 'Statistical Profiling'],
-    imageUrl:
-      'https://sites.google.com/sitesv-images-rt/APXyLQfyXfVl9RINVSYzjnTXAsUCSjwWMCJv2MwGheZeW2tJRZFEmAAwGem4XmEMqjDGjE916JMarWoL_2X9Tc7YKZCnm5W8b-_V3VTfdmr_BYvWHwKz-Y6-CiFA8GfPV8dgY33LXChc2TeK9RaeRjfCe0pUhY54pDAiM-0t1z3k7H0MNPTvq5nCgAHfebcABXbzeE1cHjDkZSGnwsvmE6h5vc6gySBCVK5s6fzdWYp9=w1280',
-    imageAlt: 'Logistics Financing Dashboard revenue trends and regional flow',
+    techStack: ['Excel', 'Power BI', 'Tableau', 'SQL', 'Logistics Analytics', 'Statistical Profiling'],
+    imageUrl: '/assets/aistudio/unnamed__3__9ad19672.png',
+    imageAlt:
+      'Logistics Financing Excel Dashboard showing ₦3.18B total revenue, 384.71K orders, 4.69K products, 8 regions led by Lagos, and order delivery status analytics',
     links: {},
     interactiveType: 'logistics-modal',
   },
@@ -288,10 +288,10 @@ export const PROJECTS: ProjectItem[] = [
       { label: 'Distribution', value: 'Multi-Year' },
       { label: 'Stakeholder', value: 'Tax Equity' },
     ],
-    techStack: ['Tableau', 'Power BI', 'SQL', 'Statistical Distributions', 'Public Policy BI'],
-    imageUrl:
-      'https://sites.google.com/sitesv-images-rt/APXyLQeIuqcwmrHZWKgd2UJjHvNhSTa_nYk-52cxYiZGZmYHZgTxp-DB8RXM_rMUVw73Wteprdes7Pzf_-zG6jvreNdeRsO1jHXrtboKPU2JLbvcooDtIy0U2QdoqYfdkUvBzh9TdJhO5keUE7Fh87l1OAPgwU2v6n6OM4Dg5VTkzXmh-vBKC6b9tUK3SJpWOoUrkKOQprk18vXML9j_is0BHpa8lRGkN88Y31S1qOMy=w1280',
-    imageAlt: 'Real Estate Sales Ratio Dashboard tax assessment distribution',
+    techStack: ['Excel', 'Tableau', 'Power BI', 'SQL', 'Statistical Distributions', 'Public Policy BI'],
+    imageUrl: '/assets/aistudio/unnamed__4__b9d58e11.png',
+    imageAlt:
+      'Real Estate Sales Ratio Dashboard showing $481,018 average price, 0.573 average sales ratio across 57,966 properties, municipal ratio table, and property type breakdown',
     links: {},
     interactiveType: 'realestate-modal',
   },
