@@ -17,6 +17,11 @@ export interface ProjectItem {
   description: string;
   highlights: string[];
   metrics: { label: string; value: string }[];
+  caseStudy: {
+    problem: string;
+    architecture: string;
+    impact: string;
+  };
   techStack: string[];
   imageUrl: string;
   imageAlt: string;
@@ -107,6 +112,14 @@ export const PROJECTS: ProjectItem[] = [
       { label: 'MAE', value: '$2,402' },
       { label: 'Interval Coverage', value: '90% PI' },
     ],
+    caseStudy: {
+      problem:
+        'Point-only medical cost estimators obscure tail risk in high-variance smoker and elevated-BMI cohorts, exposing underwriters to unflagged pricing errors.',
+      architecture:
+        'Validated Pandas/Scikit-learn regression pipeline deployed via Django on Render with 90% prediction intervals and an automated low-confidence flag.',
+      impact:
+        'Achieved R² 0.8816 (RMSE $4,665 · MAE $2,402) on holdout evaluation while surfacing calibrated uncertainty bands in real time.',
+    },
     techStack: [
       'Python',
       'Pandas',
@@ -146,6 +159,14 @@ export const PROJECTS: ProjectItem[] = [
       { label: 'Central Region Profit', value: '$39,706' },
       { label: 'Central Loss Order Rate', value: '31.9%' },
     ],
+    caseStudy: {
+      problem:
+        'Aggregate revenue looked healthy while hidden discount overrides silently eroded regional net margins without clear account-level attribution.',
+      architecture:
+        'Agglomerative Hierarchical Clustering in Python/Scikit-learn profiling 793 accounts by sales, profit, quantity, and discount concentration.',
+      impact:
+        'Isolated all 300 maximum-discount (80%) orders exclusively in the Central region (31.9% loss rate, $39,706 profit, 8 loss-making accounts).',
+    },
     techStack: [
       'Python',
       'Hierarchical Clustering',
@@ -181,6 +202,14 @@ export const PROJECTS: ProjectItem[] = [
       { label: 'Pipeline Scope', value: 'SQL + ML' },
       { label: 'Primary Focus', value: 'Inventory & Rev' },
     ],
+    caseStudy: {
+      problem:
+        'Multi-store retail planning suffered from fragmented SKU demand signals, causing overstock in slow tiers and stockouts on high-margin lines.',
+      architecture:
+        'SQL temporal lag & store-cluster feature engineering feeding Python XGBoost/Scikit-learn monthly revenue forecasting pipelines.',
+      impact:
+        'Aligned product-tier prioritization and safety-stock planning across stores with reproducible SQL-to-ML forecast driver attribution.',
+    },
     techStack: ['Python', 'SQL', 'XGBoost', 'Pandas', 'NumPy', 'Scikit-learn', 'Revenue Forecasting'],
     imageUrl: '/assets/aistudio/unnamed__2__cc83c228.png',
     imageAlt:
@@ -208,6 +237,14 @@ export const PROJECTS: ProjectItem[] = [
       { label: 'Query Layer', value: 'SQL' },
       { label: 'Visualization', value: 'Tableau Public' },
     ],
+    caseStudy: {
+      problem:
+        'Compensation benchmarks across remote vs. on-site AI/data roles shifted rapidly from 2020–2026, making hiring band calibration unreliable.',
+      architecture:
+        'SQL schema normalization and cohort aggregation connected to an interactive Tableau Public workbook with geographic and remote slicers.',
+      impact:
+        'Delivered live 2020–2026 global salary benchmarks ($110,865 market average, 33% remote share) supporting workforce budgeting.',
+    },
     techStack: ['SQL', 'Tableau Public', 'Data Cleaning', 'Compensation Benchmarking'],
     imageUrl: '/assets/aistudio/unnamed_20a293e9.jpg',
     imageAlt:
@@ -236,6 +273,14 @@ export const PROJECTS: ProjectItem[] = [
       { label: 'KPI Focus', value: 'Sales & Profit' },
       { label: 'Platform', value: 'Tableau Public' },
     ],
+    caseStudy: {
+      problem:
+        'High top-line sub-categories masked negative profit margins and seasonal demand drops hidden inside static annual spreadsheets.',
+      architecture:
+        'Interactive Tableau Public executive workbook featuring dynamic year, segment, and category slicers over multi-year margin hierarchies.',
+      impact:
+        'Enabled one-click executive drill-downs exposing loss-making sub-categories (Tables -$8K, Machines -$3K) alongside top growth segments.',
+    },
     techStack: ['Tableau Public', 'Business Intelligence', 'KPI Modeling', 'Slicer Architecture'],
     imageUrl: '/assets/aistudio/unnamed__5__7fb707a2.png',
     imageAlt:
@@ -263,6 +308,14 @@ export const PROJECTS: ProjectItem[] = [
       { label: 'Segmentation', value: 'Product × Region' },
       { label: 'Platform', value: 'Excel Pivot' },
     ],
+    caseStudy: {
+      problem:
+        'Logistics managers lacked visibility into which fulfillment regions and product lines drove working-capital efficiency versus order cancellations.',
+      architecture:
+        'Multi-pivot Microsoft Excel data model with dynamic 2021–2023 Year slicers, delivery-status breakdowns, and regional throughput cards.',
+      impact:
+        'Consolidated ₦3.18B revenue across 384.71K orders and 8 regions—pinpointing Lagos (₦1.74B) as the anchor fulfillment corridor.',
+    },
     techStack: ['Microsoft Excel', 'Pivot Tables', 'Interactive Slicers', 'SQL', 'Logistics Analytics'],
     imageUrl: '/assets/aistudio/unnamed__3__9ad19672.png',
     imageAlt:
@@ -289,6 +342,14 @@ export const PROJECTS: ProjectItem[] = [
       { label: 'Distribution', value: 'Multi-Year' },
       { label: 'Platform', value: 'Excel Pivot' },
     ],
+    caseStudy: {
+      problem:
+        'Municipal tax rolls lagged true market appreciation, creating inequitable under-assessment across specific housing types and towns.',
+      architecture:
+        'Microsoft Excel Pivot Table & Slicer analytics auditing multi-year Assessed-to-Sale ratios across 57,966 property transactions.',
+      impact:
+        'Exposed an average 0.573 sales ratio ($481,018 avg sale) and ranked severely under-assessed municipalities (e.g., Hartford 0.355) for reassessment.',
+    },
     techStack: ['Microsoft Excel', 'Pivot Tables', 'Interactive Slicers', 'SQL', 'Public Policy BI'],
     imageUrl: '/assets/aistudio/unnamed__4__b9d58e11.png',
     imageAlt:

@@ -57,12 +57,27 @@ input[type="range"].portfolio-slider::-moz-range-thumb {
   cursor: pointer;
 }
 
+/* Subtle crisp SVG data-flow line animation for architecture diagrams */
+@keyframes flowDash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.svg-flow-line {
+  stroke-dasharray: 5 7;
+  animation: flowDash 1.8s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .svg-flow-line {
+    animation: none !important;
   }
 }
 

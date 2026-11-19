@@ -127,11 +127,34 @@ export function PortfolioPage({
           onClick={() => setModalMode('realestate')}
           className="inline-flex min-h-[40px] items-center gap-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 px-4 py-2 text-xs font-semibold text-white transition-all hover:from-amber-400 hover:to-orange-500 whitespace-nowrap shrink-0"
         >
-          <BarChart2 className="h-3.5 w-3.5" aria-hidden="true" />
+          <BarChart2 className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
           Inspect Assessment Ratio Analysis
         </button>
       )}
     </div>
+  );
+
+  const renderCaseStudyHierarchy = (caseStudy: ProjectItem['caseStudy']) => (
+    <dl className="mt-4 divide-y divide-white/[0.07] border-y border-white/[0.08] text-xs leading-relaxed">
+      <div className="grid gap-1.5 py-2.5 sm:grid-cols-12 sm:gap-3">
+        <dt className="font-mono font-semibold text-amber-300 sm:col-span-3">
+          01 · Problem
+        </dt>
+        <dd className="text-slate-300 sm:col-span-9">{caseStudy.problem}</dd>
+      </div>
+      <div className="grid gap-1.5 py-2.5 sm:grid-cols-12 sm:gap-3">
+        <dt className="font-mono font-semibold text-orange-300 sm:col-span-3">
+          02 · Architecture
+        </dt>
+        <dd className="text-slate-300 sm:col-span-9">{caseStudy.architecture}</dd>
+      </div>
+      <div className="grid gap-1.5 py-2.5 sm:grid-cols-12 sm:gap-3">
+        <dt className="font-mono font-semibold text-emerald-300 sm:col-span-3">
+          03 · Impact
+        </dt>
+        <dd className="text-slate-200 sm:col-span-9">{caseStudy.impact}</dd>
+      </div>
+    </dl>
   );
 
   return (
@@ -231,27 +254,16 @@ export function PortfolioPage({
                   <span>{featuredProject.domain}</span>
                 </div>
 
-                <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-white sm:text-3xl text-balance">
                   {featuredProject.title}
                 </h2>
                 <p className="mt-1.5 text-sm font-medium text-orange-200">
                   {featuredProject.subtitle}
                 </p>
 
-                <p className="mt-4 text-sm leading-relaxed text-slate-300">
-                  {featuredProject.description}
-                </p>
+                {renderCaseStudyHierarchy(featuredProject.caseStudy)}
 
-                <ul className="mt-5 space-y-2 text-xs leading-relaxed text-slate-300">
-                  {featuredProject.highlights.map((h) => (
-                    <li key={h} className="flex items-start gap-2">
-                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-300" aria-hidden="true" />
-                      <span>{h}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <p className="mt-5 text-xs leading-relaxed text-slate-300">
+                <p className="mt-4 text-xs leading-relaxed text-slate-300">
                   <span className="font-semibold text-white">Tech Stack: </span>
                   {featuredProject.techStack.join(' · ')}
                 </p>
@@ -419,27 +431,16 @@ export function PortfolioPage({
                         <span>{project.domain}</span>
                       </div>
 
-                      <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-white">
+                      <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-white text-balance">
                         {project.title}
                       </h2>
                       <p className="mt-1.5 text-sm font-medium text-orange-200">
                         {project.subtitle}
                       </p>
 
-                      <p className="mt-4 text-sm leading-relaxed text-slate-300">
-                        {project.description}
-                      </p>
+                      {renderCaseStudyHierarchy(project.caseStudy)}
 
-                      <ul className="mt-5 space-y-2 text-xs leading-relaxed text-slate-300">
-                        {project.highlights.map((h) => (
-                          <li key={h} className="flex items-start gap-2">
-                            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-300" aria-hidden="true" />
-                            <span>{h}</span>
-                          </li>
-                        ))}
-                      </ul>
-
-                      <p className="mt-5 text-xs leading-relaxed text-slate-300">
+                      <p className="mt-4 text-xs leading-relaxed text-slate-300">
                         <span className="font-semibold text-white">Stack: </span>
                         {project.techStack.join(' · ')}
                       </p>
@@ -489,27 +490,16 @@ export function PortfolioPage({
                         <span>{project.domain}</span>
                       </div>
 
-                      <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-white">
+                      <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-white text-balance">
                         {project.title}
                       </h2>
                       <p className="mt-1.5 text-sm font-medium text-orange-200">
                         {project.subtitle}
                       </p>
 
-                      <p className="mt-4 text-sm leading-relaxed text-slate-300">
-                        {project.description}
-                      </p>
+                      {renderCaseStudyHierarchy(project.caseStudy)}
 
-                      <ul className="mt-5 space-y-2 text-xs leading-relaxed text-slate-300">
-                        {project.highlights.map((h) => (
-                          <li key={h} className="flex items-start gap-2">
-                            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-300" aria-hidden="true" />
-                            <span>{h}</span>
-                          </li>
-                        ))}
-                      </ul>
-
-                      <p className="mt-5 text-xs leading-relaxed text-slate-300">
+                      <p className="mt-4 text-xs leading-relaxed text-slate-300">
                         <span className="font-semibold text-white">Stack: </span>
                         {project.techStack.join(' · ')}
                       </p>
@@ -572,7 +562,7 @@ export function PortfolioPage({
             ) : (
               <article
                 key={project.id}
-                className="flex flex-col overflow-hidden rounded-2xl border border-white/[0.09] bg-[#0B0F17]/85 backdrop-blur-md"
+                className="flex flex-col overflow-hidden rounded-2xl border border-white/[0.09] bg-[#0B0F17]/85 backdrop-blur-md transition-colors duration-200 hover:border-white/[0.16]"
               >
                 <div className="flex flex-1 flex-col">
                   <div className="border-b border-white/[0.08] bg-[#080B12] p-2.5">
@@ -605,7 +595,7 @@ export function PortfolioPage({
                         }`}
                       />
                       <span className="pointer-events-none absolute bottom-2 right-2 inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-[#080B12]/90 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md transition-colors group-hover:border-amber-400/70 group-hover:bg-[#0B0F17]">
-                        <Maximize2 className="h-3 w-3 text-amber-300" aria-hidden="true" />
+                        <Maximize2 className="h-3 w-3 text-amber-300" strokeWidth={1.75} aria-hidden="true" />
                         Expand
                       </span>
                     </button>
@@ -623,33 +613,23 @@ export function PortfolioPage({
                         <span>{project.domain}</span>
                       </div>
 
-                      <h2 className="mt-2 font-display text-xl font-bold tracking-tight text-white">
+                      <h2 className="mt-2 font-display text-xl font-bold tracking-tight text-white text-balance">
                         {project.title}
                       </h2>
                       <p className="mt-1 text-xs font-medium text-orange-200">
                         {project.subtitle}
                       </p>
-                      <p className="mt-3 text-sm leading-relaxed text-slate-300">
-                        {project.description}
-                      </p>
 
-                      <ul className="mt-4 space-y-1.5 text-xs leading-relaxed text-slate-300">
-                        {project.highlights.map((h) => (
-                          <li key={h} className="flex items-start gap-2">
-                            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-300" aria-hidden="true" />
-                            <span>{h}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      {renderCaseStudyHierarchy(project.caseStudy)}
                     </div>
 
-                    <div className="mt-6 space-y-4 border-t border-white/[0.08] pt-4">
-                      {/* Unboxed Key Metrics */}
-                      <div className="flex flex-wrap gap-x-6 gap-y-2">
+                    <div className="mt-5 space-y-4">
+                      {/* Standardized 3-Column Metrics Bar */}
+                      <div className="grid grid-cols-3 divide-x divide-white/[0.08] rounded-xl border border-white/[0.08] bg-[#080B12]/90">
                         {project.metrics.map((m) => (
-                          <div key={m.label}>
-                            <span className="block text-[11px] text-slate-400">{m.label}</span>
-                            <span className="font-mono text-xs font-semibold text-white tabular-nums">
+                          <div key={m.label} className="px-3 py-2.5">
+                            <span className="block text-[11px] text-slate-400 truncate">{m.label}</span>
+                            <span className="mt-0.5 block font-mono text-xs font-semibold text-white tabular-nums truncate">
                               {m.value}
                             </span>
                           </div>
