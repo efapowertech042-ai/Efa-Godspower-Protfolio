@@ -71,22 +71,22 @@ export const PIPELINE_STAGES = [
   {
     step: '03',
     name: 'Modeling',
-    detail: 'Cross-validated regression benchmarking across linear, regularized, and ensemble architectures with interaction terms.',
+    detail: 'Benchmarked OLS Linear baseline against GradientBoostingRegressor (n_estimators=200, lr=0.1, max_depth=4, random_state=42) and depth-3 regularization on 1,070 train records.',
   },
   {
     step: '04',
     name: 'Evaluation',
-    detail: 'Holdout validation achieving R² 0.8816, RMSE $4,665, and MAE $2,402 with stratified subgroup residual audits.',
+    detail: '268-row holdout validation achieving R² 0.8538, RMSE $4,765, and MAE $2,656 (-36.5% MAE vs OLS; R² 0.8812 at depth=3) with subgroup residual audits.',
   },
   {
     step: '05',
     name: 'Uncertainty',
-    detail: 'Conformal / quantile 90% prediction interval calibration plus automated flagging of lower-confidence edge regimes.',
+    detail: 'Split-conformal 90% prediction interval calibration (90.3% empirical coverage, 242/268 test rows) plus automated flagging of high-variance edge regimes.',
   },
   {
     step: '06',
     name: 'Deployment',
-    detail: 'Production Django web application deployed on Render with live inference inputs and transparent interval reporting.',
+    detail: 'Full 200-tree GradientBoostingRegressor inference running live in-browser alongside the production Django web application on Render.',
   },
 ];
 
@@ -100,32 +100,32 @@ export const PROJECTS: ProjectItem[] = [
     domain: 'Healthcare Actuarial ML & Model Evaluation',
     featured: true,
     description:
-      'Estimates annual health insurance charges using age, BMI, children, smoking status, sex, and region. Provides a calibrated 90% prediction interval with each estimate and flags lower-confidence predictions for stakeholder transparency.',
+      'Trained GradientBoostingRegressor(n_estimators=200, learning_rate=0.1, max_depth=4, random_state=42) on 1,338 medical insurance records (1,070 train / 268 holdout test) to estimate annual charges from age, BMI, dependents, smoking status, sex, and region—paired with 90.3% split-conformal prediction intervals and low-confidence actuarial flags.',
     highlights: [
-      'Quantifies prediction uncertainty via 90% prediction intervals rather than opaque point estimates.',
-      'Flags high-variance edge cases (e.g., elevated BMI combined with smoking status) for actuarial review.',
-      'Deployed full-stack in Django on Render with automated input validation and evaluation guardrails.',
+      'Executes all 200 trained depth-4 gradient-boosted trees live in-browser alongside the Render/Django production endpoint.',
+      'Cuts holdout MAE by 36.5% vs OLS baseline ($2,656 vs $4,181; Holdout R² 0.8538, Train R² 0.9554, Depth-3 Tuned R² 0.8812).',
+      'Delivers calibrated 90% split-conformal intervals (90.3% empirical test coverage, 242/268 rows) with high-variance smoker+BMI review flags.',
     ],
     metrics: [
-      { label: 'R² Score', value: '0.8816' },
-      { label: 'RMSE', value: '$4,665' },
-      { label: 'MAE', value: '$2,402' },
-      { label: 'Interval Coverage', value: '90% PI' },
+      { label: 'Holdout R²', value: '0.8538' },
+      { label: 'Holdout RMSE', value: '$4,765' },
+      { label: 'Holdout MAE', value: '$2,656' },
+      { label: '90% PI Coverage', value: '90.3%' },
     ],
     caseStudy: {
       problem:
         'Point-only medical cost estimators obscure tail risk in high-variance smoker and elevated-BMI cohorts, exposing underwriters to unflagged pricing errors.',
       architecture:
-        'Validated Pandas/Scikit-learn regression pipeline deployed via Django on Render with 90% prediction intervals and an automated low-confidence flag.',
+        'GradientBoostingRegressor (200 trees, max_depth=4, lr=0.1, random_state=42) benchmarked against OLS & depth-3 GBR, with 90% split-conformal intervals and Django/Render serving.',
       impact:
-        'Achieved R² 0.8816 (RMSE $4,665 · MAE $2,402) on holdout evaluation while surfacing calibrated uncertainty bands in real time.',
+        'Achieved R² 0.8538 (RMSE $4,765 · MAE $2,656 · -36.5% MAE vs OLS; 0.8812 R² depth-3) with 90.3% empirical interval coverage on 268 unseen test rows.',
     },
     techStack: [
       'Python',
-      'Pandas',
+      'GradientBoostingRegressor',
       'Scikit-learn',
-      'Regression',
-      'Data Validation',
+      'Pandas',
+      'Split-Conformal 90% PI',
       'Model Evaluation',
       'Django',
       'Deployment',
@@ -376,7 +376,7 @@ export const COMPETENCY_MATRIX: CompetencyPillar[] = [
     competencies:
       'End-to-end supervised pipelines, SQL feature engineering, cross-validation, regression & production Django/Render deployment.',
     proofSummary:
-      'Health Insurance Charges Predictor (R² 0.8816) & Global Retail Sales Intelligence monthly revenue forecasting.',
+      'Health Insurance Charges Predictor (GBR 200 trees, R² 0.8538 · Tuned 0.8812) & Global Retail Sales Intelligence revenue forecasting.',
     targetCategory: 'Production ML & Evaluation',
     targetSearch: '',
     linkedProjects: ['Health Insurance Charges Predictor', 'Global Retail Sales Intelligence'],
@@ -387,7 +387,7 @@ export const COMPETENCY_MATRIX: CompetencyPillar[] = [
     competencies:
       'Rigorous validation strategies, error analysis, model benchmarking, bias reduction, 90% prediction intervals & confidence flagging.',
     proofSummary:
-      'Health Insurance Charges Predictor (R² 0.8816, RMSE $4,665, MAE $2,402, 90% PI & automated low-confidence flagging).',
+      'Health Insurance Charges Predictor (R² 0.8538, RMSE $4,765, MAE $2,656, -36.5% MAE vs OLS & 90.3% conformal PI coverage).',
     targetCategory: 'Production ML & Evaluation',
     targetSearch: 'Insurance',
     linkedProjects: ['Health Insurance Charges Predictor'],

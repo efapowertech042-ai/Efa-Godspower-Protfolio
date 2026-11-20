@@ -138,10 +138,10 @@ export function ResumePage() {
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div className="rounded-xl border border-white/[0.08] bg-[#080B12]/90 p-4">
               <p className="font-mono text-lg font-bold text-white tabular-nums">
-                R² 0.8816 · RMSE $4,665 · MAE $2,402
+                R² 0.8538 · RMSE $4,765 · MAE $2,656
               </p>
               <p className="mt-1 text-xs leading-relaxed text-slate-300">
-                Engineered and deployed an uncertainty-aware Health Insurance Charges Predictor in Django on Render featuring calibrated 90% prediction intervals and low-confidence flagging.
+                Engineered and deployed a 200-tree GradientBoostingRegressor (max_depth=4, lr=0.1; tuned depth-3 R² 0.8812) Health Insurance Charges Predictor with 90.3% split-conformal coverage and low-confidence flagging.
               </p>
             </div>
             <div className="rounded-xl border border-white/[0.08] bg-[#080B12]/90 p-4">

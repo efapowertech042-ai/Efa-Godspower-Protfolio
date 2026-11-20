@@ -17,8 +17,8 @@ interface HomePageProps {
 
 const VERIFIED_HERO_METRICS = [
   {
-    value: '0.8816 R²',
-    label: 'Health Insurance Charges Predictor (RMSE $4,665 · MAE $2,402 · 90% PI)',
+    value: '0.8538 R²',
+    label: '200-Tree GBR Insurance Predictor (RMSE $4,765 · MAE $2,656 · 90.3% PI)',
   },
   {
     value: '9,994 Orders',
@@ -94,7 +94,7 @@ export function HomePage({ onNavigate, onJumpToPortfolio }: HomePageProps) {
             </p>
 
             <p className="mt-5 font-mono text-xs leading-relaxed text-slate-400">
-              Nebiant Certified Data Scientist (NCDS) · 0.8816 R² Live ML App · 9,994-Order Fraud Isolation
+              Nebiant Certified Data Scientist (NCDS) · 200-Tree GBR Live ML App (0.8538 R²) · 9,994-Order Fraud Isolation
             </p>
           </div>
 

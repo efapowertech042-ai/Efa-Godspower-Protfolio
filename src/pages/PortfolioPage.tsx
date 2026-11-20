@@ -9,6 +9,7 @@ import {
 } from '../data/portfolioData';
 import { SafeImage } from '../components/SafeImage';
 import { InsuranceSimulator } from '../components/InsuranceSimulator';
+import { FeatureBehaviorGraphRag } from '../components/FeatureBehaviorGraphRag';
 import { FraudAnomalyChart } from '../components/FraudAnomalyChart';
 import { CaseStudyModal } from '../components/CaseStudyModal';
 
@@ -359,8 +360,19 @@ export function PortfolioPage({
             </p>
 
             {/* Embedded Live Estimate Simulator */}
-            <div className="mt-6">
+            <div id="insurance-simulator-panel" className="mt-6 scroll-mt-24">
               <InsuranceSimulator />
+            </div>
+
+            {/* Feature Importance & Behavior Knowledge Graph (Graph RAG) */}
+            <div className="mt-6">
+              <FeatureBehaviorGraphRag
+                onInspectSimulator={() => {
+                  document
+                    .getElementById('insurance-simulator-panel')
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+              />
             </div>
           </div>
         </article>

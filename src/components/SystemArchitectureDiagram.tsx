@@ -1,8 +1,9 @@
 import { useState, KeyboardEvent } from 'react';
-import { ArrowRight, GitBranch, Layers, ShieldCheck } from 'lucide-react';
+import { ArrowRight, GitBranch, Layers, ShieldCheck, BarChart3 } from 'lucide-react';
 import { ProjectCategory } from '../data/portfolioData';
+import { FeatureBehaviorGraphRag } from './FeatureBehaviorGraphRag';
 
-type DiagramMode = 'graph-rag' | 'ml-pipeline';
+type DiagramMode = 'graph-rag' | 'feature-rag' | 'ml-pipeline';
 
 interface NodeSpec {
   id: string;
@@ -85,7 +86,7 @@ const GRAPH_RAG_SPECS: Record<string, NodeSpec> = {
     inputContract: 'Generated claims + model residuals + subgroup distributions',
     outputGuarantee: 'Verified output or automated low-confidence escalation flag',
     metricLabel: 'Production Benchmark',
-    metricValue: 'R² 0.8816 · 90% PI',
+    metricValue: 'R² 0.8538 · 90.3% PI',
     targetCategory: 'Production ML & Evaluation',
     targetSearch: 'Health Insurance',
   },
@@ -144,7 +145,7 @@ const ML_PIPELINE_SPECS: Record<string, NodeSpec> = {
     inputContract: 'Out-of-fold & holdout predictions vs ground truth',
     outputGuarantee: 'Verified error report & subgroup parity profile',
     metricLabel: 'Holdout Accuracy',
-    metricValue: 'R² 0.8816 · RMSE $4,665',
+    metricValue: 'R² 0.8538 · RMSE $4,765',
     targetCategory: 'Production ML & Evaluation',
     targetSearch: 'Health Insurance',
   },
@@ -206,6 +207,8 @@ export function SystemArchitectureDiagram({ onJumpToPortfolio }: SystemArchitect
         <div className="flex items-center gap-2.5">
           {mode === 'graph-rag' ? (
             <GitBranch className="h-4 w-4 text-amber-300" strokeWidth={1.75} aria-hidden="true" />
+          ) : mode === 'feature-rag' ? (
+            <BarChart3 className="h-4 w-4 text-amber-300" strokeWidth={1.75} aria-hidden="true" />
           ) : (
             <Layers className="h-4 w-4 text-amber-300" strokeWidth={1.75} aria-hidden="true" />
           )}
@@ -213,10 +216,14 @@ export function SystemArchitectureDiagram({ onJumpToPortfolio }: SystemArchitect
             <h3 className="font-display text-sm font-semibold text-white">
               {mode === 'graph-rag'
                 ? 'Interactive Blueprint: Graph RAG & AI Evaluation Topology'
+                : mode === 'feature-rag'
+                ? 'Interactive Blueprint: 6-Column Feature Importance & Behavior Graph RAG'
                 : 'Interactive Blueprint: End-to-End ML Pipeline & 90% PI Gate'}
             </h3>
             <p className="text-xs text-slate-400">
-              Resolution-independent SVG architecture · Select any node to inspect input/output contracts
+              {mode === 'feature-rag'
+                ? 'Inspect how each insurance.csv column drives the 200-tree GradientBoostingRegressor predictions'
+                : 'Resolution-independent SVG architecture · Select any node to inspect input/output contracts'}
             </p>
           </div>
         </div>
@@ -224,7 +231,7 @@ export function SystemArchitectureDiagram({ onJumpToPortfolio }: SystemArchitect
         <div
           role="tablist"
           aria-label="Architecture diagram mode"
-          className="flex items-center gap-1 rounded-lg border border-white/[0.09] bg-[#080B12] p-1"
+          className="flex flex-wrap items-center gap-1 rounded-lg border border-white/[0.09] bg-[#080B12] p-1"
         >
           <button
             type="button"
@@ -238,6 +245,19 @@ export function SystemArchitectureDiagram({ onJumpToPortfolio }: SystemArchitect
             }`}
           >
             Graph RAG &amp; Eval
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={mode === 'feature-rag'}
+            onClick={() => setMode('feature-rag')}
+            className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
+              mode === 'feature-rag'
+                ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-white'
+                : 'text-slate-300 hover:bg-white/[0.06] hover:text-white'
+            }`}
+          >
+            Feature Importance RAG
           </button>
           <button
             type="button"
@@ -256,6 +276,12 @@ export function SystemArchitectureDiagram({ onJumpToPortfolio }: SystemArchitect
       </div>
 
       {/* Main Split: Vector Diagram Canvas + Active Node Spec Panel */}
+      {mode === 'feature-rag' ? (
+        <FeatureBehaviorGraphRag
+          embedded
+          onInspectSimulator={() => onJumpToPortfolio('Production ML & Evaluation', 'Health Insurance')}
+        />
+      ) : (
       <div className="grid lg:grid-cols-12">
         {/* Vector SVG Canvas */}
         <div className="overflow-x-auto border-b border-white/[0.08] bg-[#080B12]/90 p-4 sm:p-6 lg:col-span-8 lg:border-b-0 lg:border-r">
@@ -750,7 +776,7 @@ export function SystemArchitectureDiagram({ onJumpToPortfolio }: SystemArchitect
                   code: '04 · EVALUATION',
                   title: 'Holdout Residual Audit',
                   sub: 'Subgroup parity · Benchmarks',
-                  badge: 'R² 0.8816 · RMSE $4,665',
+                  badge: 'R² 0.8538 · RMSE $4,765',
                   accent: '#6EE7B7',
                 },
                 {
@@ -894,6 +920,7 @@ export function SystemArchitectureDiagram({ onJumpToPortfolio }: SystemArchitect
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 }
