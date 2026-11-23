@@ -1,7 +1,7 @@
 export type RoutePath = '/home' | '/portfolio' | '/resume' | '/contact';
 
 export type ProjectCategory =
-  | 'All (7)'
+  | 'All (8)'
   | 'Production ML & Evaluation'
   | 'Fraud & Forecasting'
   | 'BI & Tableau Dashboards';
@@ -11,7 +11,7 @@ export interface ProjectItem {
   number: string;
   title: string;
   subtitle: string;
-  category: Exclude<ProjectCategory, 'All (7)'>;
+  category: Exclude<ProjectCategory, 'All (8)'>;
   domain: string;
   featured?: boolean;
   description: string;
@@ -357,6 +357,49 @@ export const PROJECTS: ProjectItem[] = [
     links: {},
     interactiveType: 'realestate-modal',
   },
+  {
+    id: 'meridian-fx-profit-forecasting',
+    number: '08',
+    title: 'Meridian AI — USD/NGN FX & Profit Forecasting',
+    subtitle: '60-month macroeconomic exchange-rate and operating margin simulator (Oct 2026 – Sep 2031) with 7 live macro faders.',
+    category: 'Fraud & Forecasting',
+    domain: 'Macroeconomic FX & Profit Forecasting',
+    description:
+      'Interactive predictive analytics web platform built over 120 monthly observations (Oct 2016 – Sep 2026) to forecast 60-month USD/NGN exchange rates (₦1,564.13 → ₦1,607.58) and operating profitability (₦93.90M → ₦204.96M/mo, ₦26.60B 5-year revenue, ₦8.58B cumulative operating profit) across Base, Optimistic, Stress, and Custom scenarios.',
+    highlights: [
+      'Real-time 60-month simulation engine controlled by 7 macro & pricing pass-through faders (Inflation, Unit Growth, Price & FX Pass-Through, USD Import Cost, Operating Cost & FX Sensitivity).',
+      'Multi-view analytics suite spanning Executive Overview, USD/NGN Trajectory, Operating Profit, Scenarios, and Risk & Model governance.',
+      'Includes automated CSV Data Audit (Clean) verification, Annual/Monthly series switching, and full forecast CSV export on Vercel.',
+    ],
+    metrics: [
+      { label: 'Forecast Horizon', value: '60 Months' },
+      { label: '5-Yr Revenue', value: '₦26.60B' },
+      { label: '5-Yr Op. Profit', value: '₦8.58B' },
+      { label: 'Op. Margin Avg', value: '32.24%' },
+    ],
+    caseStudy: {
+      problem:
+        'Import-exposed distribution operators face severe margin compression when domestic inflation (20.67% YoY) and USD/NGN depreciation (₦1,564.13) outpace static annual budgets.',
+      architecture:
+        'Deployed Vercel forecasting platform ingesting 120 monthly observations with automated Data Audit checks, Base/Optimistic/Stress presets, and 7 real-time macro pass-through faders.',
+      impact:
+        'Delivers a transparent 60-month forecast—₦26.60B revenue, ₦8.58B cumulative profit (32.24% margin), and USD/NGN path to ₦1,607.58—with instant stress-testing and CSV export.',
+    },
+    techStack: [
+      'Time-Series Forecasting',
+      'USD/NGN FX Modeling',
+      'Scenario Simulation',
+      'Data Audit Pipeline',
+      'CSV Export',
+      'Vercel',
+    ],
+    imageUrl: '/assets/aistudio/Screenshot_2026-11-22_212659_f51939e6.png',
+    imageAlt:
+      'Meridian AI predictive analytics and USD/NGN FX forecasting dashboard showing ₦1,564.13 historical USD/NGN, ₦1,607.58 forecast, ₦26.60B 5-year forecast revenue, ₦8.58B cumulative operating profit, 32.24% margin, and 7 interactive macro scenario faders',
+    links: {
+      liveDemo: 'https://fx-prediction-topaz.vercel.app/',
+    },
+  },
 ];
 
 export interface CompetencyPillar {
@@ -374,12 +417,16 @@ export const COMPETENCY_MATRIX: CompetencyPillar[] = [
     id: 'ml-engineering',
     pillar: 'Machine Learning Engineering & Model Development',
     competencies:
-      'End-to-end supervised pipelines, SQL feature engineering, cross-validation, regression & production Django/Render deployment.',
+      'End-to-end supervised pipelines, SQL feature engineering, cross-validation, regression & production web deployment.',
     proofSummary:
-      'Health Insurance Charges Predictor (GBR 200 trees, R² 0.8538 · Tuned 0.8812) & Global Retail Sales Intelligence revenue forecasting.',
+      'Health Insurance Charges Predictor (GBR 200 trees, R² 0.8538 · Tuned 0.8812), Meridian AI 60-month FX/Profit Forecasting & Global Retail Sales Intelligence.',
     targetCategory: 'Production ML & Evaluation',
     targetSearch: '',
-    linkedProjects: ['Health Insurance Charges Predictor', 'Global Retail Sales Intelligence'],
+    linkedProjects: [
+      'Health Insurance Charges Predictor',
+      'Meridian AI — USD/NGN FX & Profit Forecasting',
+      'Global Retail Sales Intelligence',
+    ],
   },
   {
     id: 'ai-evaluation',

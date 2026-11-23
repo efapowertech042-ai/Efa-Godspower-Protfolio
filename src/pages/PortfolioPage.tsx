@@ -21,7 +21,7 @@ interface PortfolioPageProps {
 }
 
 const CATEGORIES: ProjectCategory[] = [
-  'All (7)',
+  'All (8)',
   'Production ML & Evaluation',
   'Fraud & Forecasting',
   'BI & Tableau Dashboards',
@@ -51,7 +51,7 @@ export function PortfolioPage({
     const q = searchQuery.trim().toLowerCase();
     return PROJECTS.filter((project) => {
       const matchesCat =
-        activeCategory === 'All (7)' || project.category === activeCategory;
+        activeCategory === 'All (8)' || project.category === activeCategory;
       if (!matchesCat) return false;
       if (!q) return true;
 
@@ -163,7 +163,7 @@ export function PortfolioPage({
       {/* Page Header & Category Controls */}
       <div className="flex flex-col gap-6 border-b border-white/[0.08] pb-8 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <p className="font-mono text-xs text-amber-300">Portfolio · 7 Flagship Deliverables</p>
+          <p className="font-mono text-xs text-amber-300">Portfolio · 8 Flagship Deliverables</p>
           <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Production ML, Fraud Clustering &amp; BI Systems
           </h1>
@@ -224,12 +224,12 @@ export function PortfolioPage({
             No matching portfolio projects found
           </p>
           <p className="mt-2 text-sm text-slate-300">
-            No project matched your current filter combination. Reset filters to inspect all 7 flagship deliverables.
+            No project matched your current filter combination. Reset filters to inspect all 8 flagship deliverables.
           </p>
           <button
             type="button"
             onClick={() => {
-              onCategoryChange('All (7)');
+              onCategoryChange('All (8)');
               onSearchChange('');
             }}
             className="mt-5 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 px-4 py-2 text-xs font-semibold text-white hover:from-amber-400 hover:to-orange-500"
@@ -378,7 +378,7 @@ export function PortfolioPage({
         </article>
       )}
 
-      {/* Projects 2–7 Grid */}
+      {/* Projects 2–8 Grid */}
       {standardProjects.length > 0 && (
         <div className="mt-8 grid gap-7 lg:grid-cols-2">
           {standardProjects.map((project) =>
@@ -483,7 +483,8 @@ export function PortfolioPage({
                   </div>
                 )}
               </article>
-            ) : project.id === 'global-retail-sales-intelligence' ? (
+            ) : project.id === 'global-retail-sales-intelligence' ||
+              project.id === 'meridian-fx-profit-forecasting' ? (
               <article
                 key={project.id}
                 className="lg:col-span-2 flex flex-col overflow-hidden rounded-2xl border border-white/[0.09] bg-[#0B0F17]/85 backdrop-blur-md shadow-[0_20px_50px_-20px_rgba(0,0,0,0.75)]"
@@ -522,7 +523,7 @@ export function PortfolioPage({
                     </div>
                   </div>
 
-                  {/* Right Column: Compact Matte-Framed 16:9 Infographic + Metrics */}
+                  {/* Right Column: Compact 16:9 Screenshot/Infographic + Metrics */}
                   <div className="flex flex-col gap-4 lg:col-span-5 lg:border-l lg:border-white/[0.08] lg:pl-8">
                     <button
                       type="button"
@@ -533,17 +534,27 @@ export function PortfolioPage({
                           title: project.title,
                         })
                       }
-                      aria-label="Inspect full-resolution Global Retail Sales Intelligence infographic"
+                      aria-label={`Inspect full-resolution ${project.title} visual`}
                       className="group relative block w-full overflow-hidden rounded-xl border border-white/[0.14] bg-[#080B12] p-1.5 text-left shadow-[0_14px_36px_-12px_rgba(0,0,0,0.85)] transition-colors hover:border-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-400/70"
                     >
-                      <div className="relative aspect-[1280/719] w-full overflow-hidden rounded-lg bg-[#F8FAFC] ring-1 ring-black/15">
+                      <div
+                        className={`relative aspect-[1280/719] w-full overflow-hidden rounded-lg ring-1 ring-black/15 ${
+                          project.id === 'global-retail-sales-intelligence'
+                            ? 'bg-[#F8FAFC]'
+                            : 'bg-[#050810]'
+                        }`}
+                      >
                         <SafeImage
                           src={project.imageUrl}
                           alt={project.imageAlt}
                           fallbackTitle={project.title}
                           fallbackSubtitle={project.subtitle}
                           variant="fraud"
-                          className="h-full w-full bg-[#F8FAFC]"
+                          className={`h-full w-full ${
+                            project.id === 'global-retail-sales-intelligence'
+                              ? 'bg-[#F8FAFC]'
+                              : 'bg-[#050810]'
+                          }`}
                           imgClassName="object-contain transition-transform duration-300 group-hover:scale-[1.015]"
                         />
                         <div
@@ -557,8 +568,12 @@ export function PortfolioPage({
                       </span>
                     </button>
 
-                    {/* 3-Column Metrics Strip */}
-                    <div className="grid grid-cols-3 divide-x divide-white/[0.08] rounded-xl border border-white/[0.08] bg-[#080B12]/90">
+                    {/* Metrics Strip */}
+                    <div
+                      className={`grid divide-x divide-white/[0.08] rounded-xl border border-white/[0.08] bg-[#080B12]/90 ${
+                        project.metrics.length === 4 ? 'grid-cols-2 sm:grid-cols-4' : 'grid-cols-3'
+                      }`}
+                    >
                       {project.metrics.map((m) => (
                         <div key={m.label} className="px-3.5 py-3">
                           <p className="text-[11px] font-medium text-slate-400 truncate">{m.label}</p>

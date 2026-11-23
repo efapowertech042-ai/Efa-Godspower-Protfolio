@@ -173,8 +173,8 @@ const ML_PIPELINE_SPECS: Record<string, NodeSpec> = {
     inputContract: 'Serialized pipeline artifacts + semantic BI tables',
     outputGuarantee: 'Live web estimator & decision-ready dashboards',
     metricLabel: 'Shipped Artifacts',
-    metricValue: '7 Production Systems',
-    targetCategory: 'All (7)',
+    metricValue: '8 Production Systems',
+    targetCategory: 'All (8)',
     targetSearch: '',
   },
 };
@@ -796,7 +796,7 @@ export function SystemArchitectureDiagram({ onJumpToPortfolio }: SystemArchitect
                   code: '06 · SERVING & BI',
                   title: 'Django / Render & BI',
                   sub: 'Live endpoints · Tableau / Excel',
-                  badge: '7 Production Deliverables',
+                  badge: '8 Production Deliverables',
                   accent: '#6EE7B7',
                 },
               ].map((node) => {

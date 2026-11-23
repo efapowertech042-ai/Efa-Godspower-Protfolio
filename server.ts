@@ -143,8 +143,24 @@ async function createServer() {
   if (process.env.NODE_ENV !== 'production') {
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
-      server: { middlewareMode: true },
+      server: { middlewareMode: true, hmr: false, ws: false },
       appType: 'spa',
+      plugins: [
+        {
+          name: 'disable-preview-hmr-websocket',
+          transform(code, id) {
+            if (id.replace(/\\/g, '/').includes('vite/dist/client/client.mjs')) {
+              return {
+                code: code.replace(
+                  'transport.connect(createHMRHandler(handleMessage));',
+                  '/* HMR WebSocket disabled in preview environment */'
+                ),
+                map: null,
+              };
+            }
+          },
+        },
+      ],
     });
     app.use(vite.middlewares);
   } else {
