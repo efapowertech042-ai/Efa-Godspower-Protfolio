@@ -135,17 +135,25 @@ export function ResumePage() {
           <h3 className="font-display text-sm font-semibold tracking-wide text-amber-300">
             Verified Impact &amp; Evaluation Highlights
           </h3>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div className="rounded-xl border border-white/[0.08] bg-[#080B12]/90 p-4">
-              <p className="font-mono text-lg font-bold text-white tabular-nums">
+              <p className="font-mono text-base font-bold text-white tabular-nums">
+                1.3 GB → 167 MB · 28.6s → 1.2s
+              </p>
+              <p className="mt-1 text-xs leading-relaxed text-slate-300">
+                Engineered FinSight Financial Intelligence (Vercel Vite + FastAPI) with a pure-NumPy ML, ETS/Holt-Winters, and exact TreeSHAP/LinearSHAP module—cutting cold import 23.8× and initial JS bundle from ~3 MB to ~100 KB.
+              </p>
+            </div>
+            <div className="rounded-xl border border-white/[0.08] bg-[#080B12]/90 p-4">
+              <p className="font-mono text-base font-bold text-white tabular-nums">
                 R² 0.8538 · RMSE $4,765 · MAE $2,656
               </p>
               <p className="mt-1 text-xs leading-relaxed text-slate-300">
                 Engineered and deployed a 200-tree GradientBoostingRegressor (max_depth=4, lr=0.1; tuned depth-3 R² 0.8812) Health Insurance Charges Predictor with 90.3% split-conformal coverage and low-confidence flagging.
               </p>
             </div>
-            <div className="rounded-xl border border-white/[0.08] bg-[#080B12]/90 p-4">
-              <p className="font-mono text-lg font-bold text-white tabular-nums">
+            <div className="rounded-xl border border-white/[0.08] bg-[#080B12]/90 p-4 sm:col-span-2 lg:col-span-1">
+              <p className="font-mono text-base font-bold text-white tabular-nums">
                 9,994 Orders · $39,706 Anomaly Isolated
               </p>
               <p className="mt-1 text-xs leading-relaxed text-slate-300">

@@ -1,7 +1,7 @@
 export type RoutePath = '/home' | '/portfolio' | '/resume' | '/contact';
 
 export type ProjectCategory =
-  | 'All (8)'
+  | 'All (9)'
   | 'Production ML & Evaluation'
   | 'Fraud & Forecasting'
   | 'BI & Tableau Dashboards';
@@ -11,7 +11,7 @@ export interface ProjectItem {
   number: string;
   title: string;
   subtitle: string;
-  category: Exclude<ProjectCategory, 'All (8)'>;
+  category: Exclude<ProjectCategory, 'All (9)'>;
   domain: string;
   featured?: boolean;
   description: string;
@@ -30,7 +30,12 @@ export interface ProjectItem {
     github?: string;
     tableau?: string;
   };
-  interactiveType?: 'insurance-simulator' | 'fraud-chart' | 'logistics-modal' | 'realestate-modal';
+  interactiveType?:
+    | 'insurance-simulator'
+    | 'finsight-modal'
+    | 'fraud-chart'
+    | 'logistics-modal'
+    | 'realestate-modal';
 }
 
 export const CANONICAL_URLS = {
@@ -400,6 +405,61 @@ export const PROJECTS: ProjectItem[] = [
       liveDemo: 'https://fx-prediction-topaz.vercel.app/',
     },
   },
+  {
+    id: 'finsight-financial-intelligence',
+    number: '09',
+    title: 'FinSight Financial Intelligence — Operating Profit Prediction, 2030 Forecasting & Explainable AI Platform',
+    subtitle:
+      'Deployed Live on Vercel (Multi-Service Vite + FastAPI) · Full-Stack AI & Data Science · Financial Analytics · Explainable AI (SHAP) · Time-Series Forecasting',
+    category: 'Production ML & Evaluation',
+    domain: 'Full-Stack AI · Financial Analytics · Explainable AI (SHAP)',
+    featured: true,
+    description:
+      'An end-to-end financial intelligence and predictive analytics platform engineered to analyze 10 years of monthly operational and macroeconomic data (USD/NGN FX shocks, inflation, unit pricing, COGS, and OpEx), forecast operating profit through December 2030, and deliver audit-ready explanations using exact SHAP values, Isolation Forest anomaly detection, and retrieval-grounded RAG Q&A.',
+    highlights: [
+      'Engineered custom pure-NumPy lightweight_ml.py (ML, ETS/Holt-Winters, statistical testing & exact TreeSHAP/LinearSHAP), cutting Python serverless footprint from ~1.3 GB to ~167 MB, cold import from 28.6s to ~1.2s, and frontend initial bundle from ~3 MB to ~100 KB.',
+      'Benchmarks 11 statistical & ML models (ETS(M,N,M), Holt-Winters Damped, RF, GBR, Ridge, AR, Naive) over an untouched 18-month holdout & 4 rolling-origin backtests with 6 automated hypothesis tests (Mann-Kendall, Kruskal-Wallis/ANOVA, Spearman/Pearson, Mann-Whitney, HLN Diebold-Mariano, FX shock margin compression).',
+      'Includes automated CSV/Excel ledger auditing (16 leak-free lagged/seasonal features), 5-year profit waterfall scenario simulator, Isolation Forest drift monitoring, retrieval-grounded Graphical RAG Analyst (with optional Gemini API synthesis), and one-click CSV & jsPDF exports.',
+    ],
+    metrics: [
+      { label: 'Python Footprint', value: '1.3 GB → 167 MB' },
+      { label: 'Cold Import', value: '28.6s → 1.2s' },
+      { label: 'JS Initial Bundle', value: '3 MB → 100 KB' },
+      { label: 'Forecast Benchmark', value: '11 Models · 2030' },
+    ],
+    caseStudy: {
+      problem:
+        'Volatile USD/NGN FX depreciation and inflation swings make static spreadsheet budgeting unreliable for margin protection and multi-year financial planning.',
+      architecture:
+        'Decoupled React/TypeScript/Tailwind/Recharts frontend + Python FastAPI backend deployed as Vercel Services powered by a pure-NumPy ML, ETS/Holt-Winters & exact TreeSHAP/LinearSHAP engine (lightweight_ml.py).',
+      impact:
+        'Cut serverless Python image from ~1.3 GB to ~167 MB (28.6s → ~1.2s cold import) and frontend initial bundle from ~3 MB to ~100 KB—delivering Dec 2030 forecasts, 6 automated hypothesis tests, exact SHAP attributions, and PDF/CSV reporting.',
+    },
+    techStack: [
+      'React',
+      'TypeScript',
+      'Vite',
+      'Tailwind CSS',
+      'Recharts',
+      'Lucide Icons',
+      'jsPDF',
+      'Python',
+      'FastAPI',
+      'NumPy',
+      'Pandas',
+      'Custom Pure-NumPy ML / ETS / Exact SHAP Engine',
+      'Gemini API',
+      'Vercel Multi-Service Architecture',
+    ],
+    imageUrl: '/assets/aistudio/Screenshot_2026-11-24_232513_826123c4.png',
+    imageAlt:
+      'FinSight BI Financial Performance Dashboard showing ₦2.67B revenue, ₦959.7M gross profit, ₦734.4M operating profit, 35.9% gross margin, Dec 2030 scenario simulator, 2030 Forecasting Centre, Model Explainability, Graphical RAG, and Anomaly Detection navigation',
+    links: {
+      liveDemo: 'https://finsight-financial-intelligence.vercel.app/',
+      github: 'https://github.com/efapowertech042-ai/FinSight-Financial-Intelligence',
+    },
+    interactiveType: 'finsight-modal',
+  },
 ];
 
 export interface CompetencyPillar {
@@ -419,10 +479,11 @@ export const COMPETENCY_MATRIX: CompetencyPillar[] = [
     competencies:
       'End-to-end supervised pipelines, SQL feature engineering, cross-validation, regression & production web deployment.',
     proofSummary:
-      'Health Insurance Charges Predictor (GBR 200 trees, R² 0.8538 · Tuned 0.8812), Meridian AI 60-month FX/Profit Forecasting & Global Retail Sales Intelligence.',
+      'FinSight Financial Intelligence (FastAPI + Pure-NumPy ML/ETS/SHAP on Vercel), Health Insurance Charges Predictor (GBR 200 trees, R² 0.8538), Meridian AI 60-month FX/Profit Forecasting & Global Retail Sales Intelligence.',
     targetCategory: 'Production ML & Evaluation',
     targetSearch: '',
     linkedProjects: [
+      'FinSight Financial Intelligence',
       'Health Insurance Charges Predictor',
       'Meridian AI — USD/NGN FX & Profit Forecasting',
       'Global Retail Sales Intelligence',
@@ -434,10 +495,13 @@ export const COMPETENCY_MATRIX: CompetencyPillar[] = [
     competencies:
       'Rigorous validation strategies, error analysis, model benchmarking, bias reduction, 90% prediction intervals & confidence flagging.',
     proofSummary:
-      'Health Insurance Charges Predictor (R² 0.8538, RMSE $4,765, MAE $2,656, -36.5% MAE vs OLS & 90.3% conformal PI coverage).',
+      'FinSight 11-model 18-mo holdout & 6-test hypothesis lab + exact TreeSHAP/LinearSHAP; Health Insurance Charges Predictor (R² 0.8538, RMSE $4,765, MAE $2,656 & 90.3% conformal PI coverage).',
     targetCategory: 'Production ML & Evaluation',
-    targetSearch: 'Insurance',
-    linkedProjects: ['Health Insurance Charges Predictor'],
+    targetSearch: '',
+    linkedProjects: [
+      'FinSight Financial Intelligence',
+      'Health Insurance Charges Predictor',
+    ],
   },
   {
     id: 'unsupervised-fraud',
@@ -574,19 +638,19 @@ export const REAL_ESTATE_STUDY_DATA = {
 export const TECH_STACK_GROUPS = [
   {
     group: 'Python & ML Stack',
-    items: ['Pandas', 'NumPy', 'Scikit-learn', 'Matplotlib', 'Seaborn'],
+    items: ['Pandas', 'NumPy', 'Scikit-learn', 'Exact SHAP (TreeSHAP/LinearSHAP)', 'ETS & Time-Series', 'Matplotlib', 'Seaborn'],
   },
   {
     group: 'Data & Querying',
-    items: ['SQL', 'Data Warehousing', 'Feature Engineering', 'Data Validation'],
+    items: ['SQL', 'Data Warehousing', 'Feature Engineering', 'Statistical Hypothesis Testing', 'Data Validation'],
   },
   {
-    group: 'Business Intelligence',
-    items: ['Tableau Public', 'Microsoft Excel (Pivot Dashboards)', 'Power BI', 'Executive KPI Design'],
+    group: 'Business Intelligence & Frontend',
+    items: ['React / TypeScript', 'Recharts', 'Tableau Public', 'Microsoft Excel (Pivot Dashboards)', 'Power BI'],
   },
   {
     group: 'AI Evaluation & Deployment',
-    items: ['Error Analysis', 'Benchmarking', 'Bias Reduction', 'Django', 'Render'],
+    items: ['FastAPI', 'Vercel Multi-Service', 'Django', 'Render', 'Error Analysis', '90% Conformal Intervals'],
   },
 ];
 

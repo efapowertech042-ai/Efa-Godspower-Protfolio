@@ -25,7 +25,7 @@ export default function App() {
   const [currentRoute, setCurrentRoute] = useState<RoutePath>(() =>
     normalizeRoute(window.location.pathname)
   );
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory>('All (8)');
+  const [activeCategory, setActiveCategory] = useState<ProjectCategory>('All (9)');
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {

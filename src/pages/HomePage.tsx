@@ -29,8 +29,8 @@ const VERIFIED_HERO_METRICS = [
     label: 'Central Region profit isolated with 300 max-discount (80%) orders',
   },
   {
-    value: '8 Flagship',
-    label: 'Production ML apps, FX forecasting simulators, SQL pipelines & BI dashboards',
+    value: '9 Flagship',
+    label: 'FinSight 2030 FastAPI/SHAP AI, Insurance GBR, FX forecasting & BI systems',
   },
 ];
 
@@ -101,7 +101,7 @@ export function HomePage({ onNavigate, onJumpToPortfolio }: HomePageProps) {
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <button
               type="button"
-              onClick={() => onJumpToPortfolio('All (8)', '')}
+              onClick={() => onJumpToPortfolio('All (9)', '')}
               className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/40 transition-all hover:from-amber-400 hover:to-orange-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 whitespace-nowrap shrink-0"
             >
               Explore Flagship Systems
@@ -294,11 +294,11 @@ export function HomePage({ onNavigate, onJumpToPortfolio }: HomePageProps) {
             href="/portfolio"
             onClick={(e) => {
               e.preventDefault();
-              onJumpToPortfolio('All (8)', '');
+              onJumpToPortfolio('All (9)', '');
             }}
             className="inline-flex items-center gap-1.5 text-sm font-medium text-amber-300 hover:text-orange-300 transition-colors whitespace-nowrap shrink-0"
           >
-            Explore all 8 projects
+            Explore all 9 projects
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
